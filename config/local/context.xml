@@ -1,0 +1,97 @@
+<Context>
+    
+    <Parameter name="environmentLabel" value="PROD environment"/>
+    
+    <!-- Set the Log4j level : DEBUG, INFO, WARN, ERROR, FATAL, OFF -->
+    <Parameter name="log4jRootLogger.level" value="DEBUG" />
+    <!-- Set the Log4j "SevereMail" SMTP Appender properties -->
+    <Parameter name="log4jSevereMail.from"  value="oai-provider@datacite.org" />
+    <Parameter name="log4jSevereMail.to"    value="marcin.paluch@nrc-cnrc.gc.ca" />
+    
+    <Parameter name="mail.smtp.host" value="localhost" />
+    <Parameter name="mail.from"      value="cisti-oai.admin@nrc-cnrc.gc.ca" />
+
+	<Parameter name="mdssetcache.expiry.seconds" value="600" />
+	<Parameter name="stylesheet.kernel2.0_to_oaidc" value="/xsl/kernel2.0_to_oaidc.xsl" />
+	<Parameter name="stylesheet.kernel2.1_to_oaidc" value="/xsl/kernel2.1_to_oaidc.xsl" />
+	
+	<Parameter name="mds.db.username" value="[username here]" />
+	<Parameter name="mds.db.password" value="[password here]" />	
+	<Parameter name="mds.db.url" value="jdbc:mysql://db2.datacite.org:3306/datacite?characterEncoding=UTF-8" />
+	<Parameter name="mds.db.driver" value="com.mysql.jdbc.Driver" />
+	<Parameter name="mds.db.pool.start" value="1" />
+	<Parameter name="mds.db.pool.max" value="3" />
+
+	<!-- Repository prefixes. Comma separated list of the different -->
+	<!-- repositories that will have their own controller servlet implementation. -->
+	<!-- Each prefix MUST have a set of OAI properties below -->
+	<Parameter name="oai.repositories" value="datacitemds" />
+
+	<!-- OAICat Repository Specific Properties (see bottom for some explanations)-->
+	<!-- There should be a copy of these for EVERY prefix above -->
+	<!-- *************************************************************************** -->	
+
+	<!-- datacitemds = access to DataCite MDS repository -->
+	<Parameter name="datacitemds.AbstractCatalog.oaiCatalogClassName" value="datacite.oai.provider.catalog.datacite.DataciteOAICatalog" />
+	<Parameter name="datacitemds.AbstractCatalog.recordFactoryClassName" value="datacite.oai.provider.catalog.datacite.DataciteOAIRecordFactory" />
+	<Parameter name="datacitemds.AbstractCatalog.secondsToLive" value="3600" />
+	<Parameter name="datacitemds.AbstractCatalog.granularity" value="YYYY-MM-DDThh:mm:ssZ" />
+	<Parameter name="datacitemds.DataciteOAICatalog.maxListSize" value="50" />
+	<Parameter name="datacitemds.DataciteOAIRecordFactory.repositoryIdentifier" value="oai.datacite.org" />
+	<Parameter name="datacitemds.Identify.repositoryName" value="DataCite MDS" />
+	<Parameter name="datacitemds.Identify.adminEmail" value="admin@datacite.org" />
+	<Parameter name="datacitemds.Identify.earliestDatestamp" value="2011-01-01T00:00:00Z" />
+	<Parameter name="datacitemds.Identify.deletedRecord" value="yes" />
+	<Parameter name="datacitemds.Identify.repositoryIdentifier" value="oai.datacite.org" />
+	<Parameter name="datacitemds.Identify.sampleIdentifier" value="oai:oai.datacite.org:12425" />
+	<Parameter name="datacitemds.Crosswalks.oai_datacite" value="datacite.oai.provider.server.crosswalk.OaiDatacite" />
+	<Parameter name="datacitemds.Crosswalks.oai_dc" value="datacite.oai.provider.server.crosswalk.Datacite2Oai_dc" />
+	<Parameter name="datacitemds.Crosswalks.datacite" value="datacite.oai.provider.server.crosswalk.DataciteDirect" />
+
+	<!-- OAICat properties -->
+	<!-- *************************************************************************** -->
+	
+	<!-- This paramter is optional. Comment it out if you want the code to get the baseURL
+	from the request instead. Setting it here is only necessary if your firewall messes
+	with the request in a way that alters the baseURL from your expectations. -->
+	<!--Parameter name="OAIHandler.baseURL" value="http://localhost:8080/oai/ctrl" /-->
+
+	<!--Uncomment this line if you want to include an XSL stylesheet reference
+	in the OAI response so they can be rendered into HTML by browsers. -->
+	<!--Parameter name="OAIHandler.styleSheet" value="/oaicat/oaicat.xsl" /-->
+
+	<!-- Uncomment this line if you want OAICat to render the responses into HTML on the server using
+	OAIHandler.stylesheet when the request comes from an old browser. -->
+	<!--Parameter name="OAIHandler.renderForOldBrowsers" value="true" /-->
+
+	<!--Parameter name="AbstractCatalog.oaiCatalogClassName" value="package.catalog.CISTIOAICatalog" /-->
+	<!--Parameter name="AbstractCatalog.recordFactoryClassName" value="package.oai.catalog.CISTIOAIRecordFactory" /-->
+	<!--Parameter name="AbstractCatalog.secondsToLive" value="3600" /-->
+
+	<!-- Choose one of the following two -->
+	<!--Parameter name="AbstractCatalog.granularity" value="YYYY-MM-DD" /-->
+	<!--Parameter name="AbstractCatalog.granularity" value="YYYY-MM-DDThh:mm:ssZ" /-->
+
+	<!-- Change to include properties peculiar to your implementation of AbstractCatalog -->
+	<!--Parameter name="YourOAICatalog.maxListSize" value="10" /-->
+	<!--Parameter name="YourOAIRecordFactory.repositoryIdentifier" value="repo.id.com" /-->
+
+	<!-- Custom Identify response values -->
+	<!--Parameter name="Identify.repositoryName" value="My Repository" /-->
+	<!--Parameter name="Identify.adminEmail" value="admin@email.com" /-->
+	<!--Parameter name="Identify.earliestDatestamp" value="1930-01-02T00:00:00Z" /-->
+	<!--Parameter name="Identify.deletedRecord" value="no" /-->
+
+	<!-- This is the old way to specify <description><oai-identifier> for the Identify verb -->
+	<!--Parameter name="Identify.repositoryIdentifier" value="my.repo.id" /-->
+	<!--Parameter name="Identify.sampleIdentifier" value="oai:my.repo.id:1570664" /-->
+
+	<!-- This is the new way to specify <description> elements in general for the Identify verb
+	Append something unique like .1, .2, etc to 'Identify.description' for each occurrence -->
+	<!--Parameter name="Identify.description.1" value="<description><oai-identifier xmlns=\"http://www.openarchives.org/OAI/2.0/oai-identifier\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/oai-identifier http://www.openarchives.org/OAI/2.0/oai-identifier.xsd\"><scheme>oai</scheme><repositoryIdentifier>oaicat.oclc.org</repositoryIdentifier><delimiter>:</delimiter><sampleIdentifier>oai:oaicat.oclc.org:OCLCNo/ocm00000012</sampleIdentifier></oai-identifier></description>" / -->
+
+	<!-- List the supported metadataPrefixes along with the class that performs the associated crosswalk -->
+	<!--Parameter name="Crosswalks.oai_dc" value="package.oai.server.crosswalk.Mods2Oai_dc" /-->
+
+       
+</Context>

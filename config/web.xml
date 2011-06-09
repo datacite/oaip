@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app 
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" 
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+
+    <!-- General description of your web application -->
+
+    <display-name>OAI-PMH Provider</display-name>
+    <description>
+      This is version 2.0 of an application to demonstrate
+      an OAI Repository based on servlets. It was written
+      by Jeffrey Young (jyoung@oclc.org), who should be
+      contacted for more information.
+    </description>
+
+	<listener>
+		<listener-class>datacite.oai.provider.ContextListener</listener-class>
+	</listener>
+
+    <servlet>
+      <servlet-name>datacite</servlet-name>
+      <description>
+        This servlet processes OAI verbs. 
+
+        The initialization parameter names for this servlet are the
+        "servlet path" that will be received by this servlet (after the
+        filename extension is removed).  The corresponding value is the
+        name of the action class that will be used to process this request.
+      </description>
+      <servlet-class>datacite.oai.provider.DataCiteControllerServlet</servlet-class>
+      <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>datacite</servlet-name>
+      <url-pattern>/ctrl</url-pattern>
+    </servlet-mapping>
+
+    <session-config>
+      <session-timeout>30</session-timeout>
+    </session-config>
+
+</web-app>
