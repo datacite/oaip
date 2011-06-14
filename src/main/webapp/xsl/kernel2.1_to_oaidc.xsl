@@ -139,7 +139,7 @@
 
     <xsl:template match="datacite:alternateIdentifiers">
         <xsl:for-each select="datacite:alternateIdentifier">
-            <xsl:element name="dc:identifer">
+            <xsl:element name="dc:identifier">
                 <xsl:choose>
                     <xsl:when test="string-length(@alternateIdentifierType) &gt; 0">
                         <xsl:value-of select="lower-case(@alternateIdentifierType)"/>

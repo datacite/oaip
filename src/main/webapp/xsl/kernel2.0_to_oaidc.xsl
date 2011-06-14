@@ -138,7 +138,7 @@
 
     <xsl:template match="alternateIdentifiers">
         <xsl:for-each select="alternateIdentifier">
-            <xsl:element name="dc:identifer">
+            <xsl:element name="dc:identifier">
                 <xsl:choose>
                     <xsl:when test="string-length(@alternateIdentifierType) &gt; 0">
                         <xsl:value-of select="lower-case(@alternateIdentifierType)"/>
