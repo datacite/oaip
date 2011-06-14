@@ -38,7 +38,8 @@ import datacite.oai.provider.util.property.PropertyNotFoundException;
 public class MDSSearchService extends Service {
 
     private static final Logger logger = Logger.getLogger(MDSSearchService.class);    
-    private PooledDataSource pds = null;    
+    private PooledDataSource pds = null;
+    private String[] omitPrefixes = null;
     
     /**
      * Public constructor.
@@ -51,17 +52,21 @@ public class MDSSearchService extends Service {
         try {
             ApplicationContext context = ApplicationContext.getInstance(); 
 
-            String url = context.getProperty(Constants.Property.MDS_DB_URL);
-            String driver = context.getProperty(Constants.Property.MDS_DB_DRIVER);
-            String username = context.getProperty(Constants.Property.MDS_DB_USERNAME);
-            String password = context.getProperty(Constants.Property.MDS_DB_PASSWORD);
+            String url = context.getProperty(Constants.Database.MDS_DB_URL);
+            String driver = context.getProperty(Constants.Database.MDS_DB_DRIVER);
+            String username = context.getProperty(Constants.Database.MDS_DB_USERNAME);
+            String password = context.getProperty(Constants.Database.MDS_DB_PASSWORD);
             
             
-            int poolStartSize = context.getIntProperty(Constants.Property.MDS_DB_POOL_START);
-            int poolMaxSize = context.getIntProperty(Constants.Property.MDS_DB_POOL_MAX);
+            int poolStartSize = context.getIntProperty(Constants.Database.MDS_DB_POOL_START);
+            int poolMaxSize = context.getIntProperty(Constants.Database.MDS_DB_POOL_MAX);
                         
             pds = new PooledDataSource(driver,url,username, password,poolStartSize,poolMaxSize);
             
+            String omit = context.getProperty(Constants.Property.MDS_PREFIXES_OMIT); 
+            if (omit!=null && omit.trim().length()>0){
+                omitPrefixes = omit.split(",");
+            }                        
         } 
         catch (PropertyNotFoundException pe) {
             throw new ServiceException(pe);
@@ -87,12 +92,18 @@ public class MDSSearchService extends Service {
     public DatasetRecordBean getDatasetByID(String id) throws ServiceException {
         DatasetRecordBean dataset = null;
         
-        //StringBuilder query = new StringBuilder("select d.id as dataset_id,d.is_ref_quality,DATE_FORMAT(d.updated,'");
-        StringBuilder query = new StringBuilder("select d.id as dataset_id,d.is_ref_quality,DATE_FORMAT(m.created,'");
+        StringBuilder query = new StringBuilder("select d.id as dataset_id,d.is_ref_quality,d.is_active,DATE_FORMAT(m.created,'");
         query.append(Constants.DateTime.DATETIME_FORMAT_MYSQL);
         query.append("') as update_date,m.xml,dc.symbol ");
         query.append("from dataset d, metadata m, datacentre dc where m.dataset = d.id and m.metadata_version = (select max(m.metadata_version) from metadata m where m.dataset = d.id) and d.datacentre = dc.id and d.id = ?");
-            
+
+        //add doi prefixes to omit from results
+        if (omitPrefixes!=null && omitPrefixes.length>0){
+            for (String omit : omitPrefixes){
+                query.append(" and d.doi not like '"+omit+"%'");
+            }
+        }        
+        
         if (logger.isDebugEnabled()){
             logger.debug("Query: "+query.toString());
             logger.debug("ID: "+id);
@@ -165,11 +176,14 @@ public class MDSSearchService extends Service {
         if (updateDateTo != null){
             ands.add("DATE_FORMAT(m.created,'"+Constants.DateTime.DATETIME_FORMAT_MYSQL+"') <= '"+df.format(updateDateTo)+"'");
         }
+
+        //add doi prefixes to omit from results
+        if (omitPrefixes!=null && omitPrefixes.length>0){
+            for (String omit : omitPrefixes){
+                ands.add("d.doi not like '"+omit+"%'");
+            }
+        }
         
-        //TODO: show or not show?
-        //don't show deleted items
-        //ands.add("d.is_active = TRUE");
-                
         //combine list query and clauses
         listquery = addClauses(listquery,ands,"and");
         listquery.append("order by m.created desc LIMIT "+offset+","+length);
@@ -242,7 +256,7 @@ public class MDSSearchService extends Service {
         //query to count available sets
         StringBuilder countQuery = new StringBuilder("select count(symbol) as count from (");
         countQuery.append(unionQuery);
-        countQuery.append(") tab");
+        countQuery.append(") tbl");
         
         logger.debug("Count query: "+countQuery.toString());
         
@@ -294,7 +308,5 @@ public class MDSSearchService extends Service {
         
         return query;
     }
-
-    
-    
+     
 }

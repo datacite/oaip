@@ -15,7 +15,7 @@ import org.apache.commons.pool.ObjectPool;
 import org.apache.commons.pool.impl.GenericObjectPool;
 
 /**
- * Extension to generic pool to initialize pool sizes.
+ * Extension to generic pool to initialize pool sizes, and testing strategy.
  * @author PaluchM
  */
 public class CustomConnPool extends GenericObjectPool implements ObjectPool{
@@ -25,8 +25,6 @@ public class CustomConnPool extends GenericObjectPool implements ObjectPool{
         this.setMaxActive(maxSize);
         this.setMinIdle(minSize);
         this.setWhenExhaustedAction(WHEN_EXHAUSTED_FAIL);
+        this.setTestOnBorrow(true);
     }
-    
-    
-    
 }

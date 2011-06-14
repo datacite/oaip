@@ -20,7 +20,6 @@ import org.apache.log4j.Logger;
 
 import datacite.oai.provider.catalog.datacite.MDSSetCache;
 import datacite.oai.provider.service.ServiceCollection;
-import datacite.oai.provider.util.Log4j;
 
 /**
  * Initializes and destroys the context
@@ -50,7 +49,6 @@ public final class ContextListener implements ServletContextListener
             ServletContext servletContext = event.getServletContext();
 
             ApplicationContext.initialize(servletContext);
-            Log4j.initialize();
             ServiceCollection.initialize(servletContext);
             MDSSetCache.initialize();
         }

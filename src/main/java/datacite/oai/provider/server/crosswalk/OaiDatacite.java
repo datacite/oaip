@@ -26,8 +26,8 @@ import datacite.oai.provider.catalog.datacite.DatasetRecordBean;
  */
 public class OaiDatacite extends Crosswalk {
 
-    private final static String schemaNamespace = "http://schemas.datacite.org/oai/oai-1.0/";
-    private final static String schemaLocation = "http://schemas.datacite.org/oai/oai-1.0/metadata.xsd";
+    private final static String schemaNamespace = "http://schema.datacite.org/oai/oai-1.0/";
+    private final static String schemaLocation = "http://schema.datacite.org/oai/oai-1.0/oai.xsd";
     
     private final String rootElement = "oai_datacite";
     private final String versionElement = "schemaVersion";

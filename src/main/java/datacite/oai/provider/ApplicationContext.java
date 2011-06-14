@@ -1,5 +1,7 @@
 package datacite.oai.provider;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -132,7 +134,7 @@ public class ApplicationContext implements PropertyHolder , PropertyResolver {
     }
     
     @SuppressWarnings("rawtypes")
-    private Properties loadApplicationProperties(ServletContext sc) {       
+    private Properties loadApplicationProperties(ServletContext sc) throws Exception{       
         
         Properties props = new Properties();        
         Enumeration paramNames = sc.getInitParameterNames();
@@ -145,6 +147,16 @@ public class ApplicationContext implements PropertyHolder , PropertyResolver {
             props.put(key,value);       
             paramCount++;
             logger.info("[ApplicationControllerServlet#init] Init Parameter "+key+"="+value);
+        }
+        
+        //load database properties from file
+        try{
+            InputStream in = sc.getResourceAsStream(props.getProperty(Constants.Property.DB_PROPERTIES_FILE));
+            props.load(in);
+            in.close();
+        }
+        catch(Exception e){
+            throw new Exception("Error reading DB properties at: "+props.getProperty(Constants.Property.DB_PROPERTIES_FILE),e);
         }
         
         return props;

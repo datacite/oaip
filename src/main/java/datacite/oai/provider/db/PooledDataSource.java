@@ -54,8 +54,9 @@ public class PooledDataSource {
                 ObjectPool connectionPool = new CustomConnPool(startPoolSize,maxPoolSize);
                 ConnectionFactory connectionFactory = new DriverManagerConnectionFactory(url,username,password);
                 
-                @SuppressWarnings("unused")
                 PoolableConnectionFactory poolableConnectionFactory = new PoolableConnectionFactory(connectionFactory,connectionPool,null,null,false,true);
+                poolableConnectionFactory.setValidationQuery("select 1+1 from dual");
+                
                 pds = new PoolingDataSource(connectionPool);
                 pds.setLogWriter(new Log4jPrintWriter(logger,Priority.WARN));
                 

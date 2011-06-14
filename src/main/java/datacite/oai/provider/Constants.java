@@ -50,12 +50,13 @@ public final class Constants {
 
         public static final String ENVIRONMENT_LABEL = "environmentLabel";
 
-        public static final String LOG4J_ROOT_LEVEL = "log4jRootLogger.level";
+/*        public static final String LOG4J_ROOT_LEVEL = "log4jRootLogger.level";
         public static final String LOG4J_SEVEREMAIL_FROM = "log4jSevereMail.from"; 
         public static final String LOG4J_SEVEREMAIL_TO = "log4jSevereMail.to"; 
 
         public static final String SMTP_HOST = "mail.smtp.host";
-        public static final String SMTP_FROM = "mail.from";        
+        public static final String SMTP_FROM = "mail.from";
+                */
         
         public static final String STYLESHEET_KERNEL2_0_TO_OAIDC = "stylesheet.kernel2.0_to_oaidc";
         public static final String STYLESHEET_KERNEL2_1_TO_OAIDC = "stylesheet.kernel2.1_to_oaidc";
@@ -63,15 +64,9 @@ public final class Constants {
         public static final String MDS_MAX_LIST_SIZE = "DataciteOAICatalog.maxListSize";
         public static final String MDS_SETCACHE_EXPIRY_SECONDS = "mdssetcache.expiry.seconds";        
         
-        //MDS DB properties
-        public static final String MDS_DB_USERNAME = "mds.db.username";
-        public static final String MDS_DB_PASSWORD = "mds.db.password";
-        public static final String MDS_DB_URL = "mds.db.url";
-        public static final String MDS_DB_DRIVER = "mds.db.driver";
-        public static final String MDS_DB_POOL_START = "mds.db.pool.start";
-        public static final String MDS_DB_POOL_MAX = "mds.db.pool.max";
+        public static final String DB_PROPERTIES_FILE = "db.properties";        
         
-        
+        public static final String MDS_PREFIXES_OMIT = "mds.prefixes.omit";
     }
 
     /**
@@ -92,5 +87,20 @@ public final class Constants {
     public static class SchemaVersion{
         public static final String VERSION_2_0 = "2.0";
         public static final String VERSION_2_1 = "2.1";
+    }
+    
+    /** Holds constants for database connections **/
+    public static class Database{
+        
+        //MDS DB properties
+        public static final String MDS_DB_USERNAME = "mds.db.username";
+        public static final String MDS_DB_PASSWORD = "mds.db.password";
+        public static final String MDS_DB_URL = "mds.db.url";
+        public static final String MDS_DB_DRIVER = "mds.db.driver";
+        public static final String MDS_DB_POOL_START = "mds.db.pool.start";
+        public static final String MDS_DB_POOL_MAX = "mds.db.pool.max";
+        
+        
+        
     }
 }

@@ -1,27 +1,16 @@
-<Context>
-    
+<Context>    
     <Parameter name="environmentLabel" value="PROD environment"/>
-    
-    <!-- Set the Log4j level : DEBUG, INFO, WARN, ERROR, FATAL, OFF -->
-    <Parameter name="log4jRootLogger.level" value="DEBUG" />
-    <!-- Set the Log4j "SevereMail" SMTP Appender properties -->
-    <Parameter name="log4jSevereMail.from"  value="oai-provider@datacite.org" />
-    <Parameter name="log4jSevereMail.to"    value="marcin.paluch@nrc-cnrc.gc.ca" />
-    
-    <Parameter name="mail.smtp.host" value="localhost" />
-    <Parameter name="mail.from"      value="cisti-oai.admin@nrc-cnrc.gc.ca" />
 
 	<Parameter name="mdssetcache.expiry.seconds" value="600" />
 	<Parameter name="stylesheet.kernel2.0_to_oaidc" value="/xsl/kernel2.0_to_oaidc.xsl" />
 	<Parameter name="stylesheet.kernel2.1_to_oaidc" value="/xsl/kernel2.1_to_oaidc.xsl" />
-	
-	<Parameter name="mds.db.username" value="[username here]" />
-	<Parameter name="mds.db.password" value="[password here]" />	
-	<Parameter name="mds.db.url" value="jdbc:mysql://db2.datacite.org:3306/datacite?characterEncoding=UTF-8" />
-	<Parameter name="mds.db.driver" value="com.mysql.jdbc.Driver" />
-	<Parameter name="mds.db.pool.start" value="1" />
-	<Parameter name="mds.db.pool.max" value="3" />
 
+	<!-- file containing DB connection strings -->
+	<Parameter name="db.properties" value="/WEB-INF/classes/database.properties" />
+		
+	<!-- Comma separated list of prefixes to omit from MDS results -->
+	<Parameter name="mds.prefixes.omit" value="10.5072" />
+	
 	<!-- Repository prefixes. Comma separated list of the different -->
 	<!-- repositories that will have their own controller servlet implementation. -->
 	<!-- Each prefix MUST have a set of OAI properties below -->
@@ -47,6 +36,7 @@
 	<Parameter name="datacitemds.Crosswalks.oai_datacite" value="datacite.oai.provider.server.crosswalk.OaiDatacite" />
 	<Parameter name="datacitemds.Crosswalks.oai_dc" value="datacite.oai.provider.server.crosswalk.Datacite2Oai_dc" />
 	<Parameter name="datacitemds.Crosswalks.datacite" value="datacite.oai.provider.server.crosswalk.DataciteDirect" />
+	<Parameter name="datacitemds.OAIHandler.styleSheet" value="xsl/oaitohtml.xsl" />	
 
 	<!-- OAICat properties -->
 	<!-- *************************************************************************** -->

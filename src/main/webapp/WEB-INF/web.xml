@@ -5,16 +5,9 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
-
-
     <!-- General description of your web application -->
-
     <display-name>OAI-PMH Provider</display-name>
     <description>
-      This is version 2.0 of an application to demonstrate
-      an OAI Repository based on servlets. It was written
-      by Jeffrey Young (jyoung@oclc.org), who should be
-      contacted for more information.
     </description>
 
 	<listener>

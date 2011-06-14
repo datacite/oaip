@@ -76,8 +76,9 @@ public class DatasetRecordBean implements Serializable{
     }
 
     public void setMetadata(String metadata){
-        //remove xml declaration
-        this.metadata = metadata.replaceAll("(<\\?xml.*\\?>)","");        
+        //remove xml declaration and comment blocks
+        this.metadata = metadata.replaceAll("(<!--.*-->)","").replaceAll("(<\\?xml.*\\?>)","");
+        
         setSchemaVersion(determineSchemaVersion(this.metadata));
     }
     
