@@ -2,9 +2,11 @@
 <xsl:stylesheet
     version="2.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+   	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    	xmlns:datacite="http://datacite.org/schema/kernel-2.1"
     xmlns:dc="http://purl.org/dc/elements/1.1/"
-    xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/">
+    xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+    exclude-result-prefixes="datacite">
 
     <xsl:output method="xml" omit-xml-declaration="yes" indent="yes" encoding="UTF-8" />
 
@@ -192,6 +194,7 @@
 
     <xsl:template match="datacite:resource">
         <xsl:element name="oai_dc:dc">
+            <xsl:attribute name="xsi:schemaLocation">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd</xsl:attribute>        
             <xsl:namespace name="dc">http://purl.org/dc/elements/1.1/</xsl:namespace>
             <xsl:apply-templates select="datacite:titles"/>
             <xsl:apply-templates select="datacite:creators"/>

@@ -23,6 +23,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -69,7 +70,11 @@ public class TransformerService extends Service {
             
             logger.warn("TransformerService loaded.");
 
-        } catch(Exception e) {
+        } 
+        catch(TransformerConfigurationException te){
+        	throw new ServiceException(te.getMessageAndLocation(),te);
+        }
+        catch(Exception e) {
             logger.error("Could not load TransformerService", e);
             throw new ServiceException(e);
         }
@@ -143,7 +148,7 @@ public class TransformerService extends Service {
      */
     private DOMSource buildDOMSource(InputStream inputStream) throws SAXException, IOException, ParserConfigurationException {
         DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
-        documentFactory.setNamespaceAware(false);
+        documentFactory.setNamespaceAware(true);
 
         DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
         Document document = documentBuilder.parse(inputStream);
