@@ -30,7 +30,7 @@
 
     <servlet-mapping>
       <servlet-name>datacite</servlet-name>
-      <url-pattern>/ctrl</url-pattern>
+      <url-pattern>/oai</url-pattern>
     </servlet-mapping>
 
     <session-config>
