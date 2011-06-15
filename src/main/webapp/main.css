@@ -12,6 +12,10 @@ h1 {
     font-size: 50px;
 }
 
+small {
+    color: #77C9EA;
+}
+
 h1 img {
     vertical-align: middle;
 }

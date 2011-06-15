@@ -1,14 +1,14 @@
 <html>
 <head>
-<title>DataCite OAI-PMH Data Provider</title>
+<title>DataCite OAI-PMH Data Provider Beta</title>
 <link rel="stylesheet" type="text/css" href="main.css" />
 </head>
 <body>
-<h1><img src="https://api.datacite.org/resources/images/dc-logo.gif"> OAI-PMH Data Provider </img></h1>
+<h1><img src="https://api.datacite.org/resources/images/dc-logo.gif"> OAI-PMH Data Provider</img> <small>Beta</small></h1> 
 <h2>What is this service?</h2>
 <p>This <a href="http://www.datacite.org">DataCite</a> service exposes metadata stored in the DataCite Metadata Store (<a href="http://mds.datacite.org">MDS</a>) using the Open Archives Initiative Protocol for Metadata Harvesting (<a href="http://www.openarchives.org/pmh/">OAI-PMH</a>).</p>
 <h2>Who can use this service?</h2>
-<p>This service is open to everyone and is meant to be accessed by OAI-PMH compliant harvesters or any application that issues OAI-PMH requests.</p>
+<p>This service is open to everyone and is meant to be accessed by OAI-PMH compliant harvesters or any application that issues OAI-PMH requests. The service base address is <strong><code>http://oai.datacite.org/oai</code></strong> and the service identifier is available <a href="http://oai.datacite.org/oai?verb=Identify">here</a>.</p>
 <h2>What is OAI-PMH?</h2>
 <p>In brief, <a href="http://www.openarchives.org/pmh/">OAI-PMH</a> provides a set of services that enables exposure and harvesting of repository metadata. The protocol is comprised of six verbs that specify the service being invoked, they are:</p>
 <p><ul>
@@ -30,9 +30,9 @@
 </ul></p>  
 <p>The verbs and parameters can be combined to issue requests to the service such as:</p>
 <p><ul style="list-style: none;">
-<li><code><a href="http://oai.datacite.org/ctrl?verb=Identify">http://oai.datacite.org/ctrl?verb=Identify</a></code></li>
-<li><code><a href="http://oai.datacite.org/ctrl?verb=ListIdentifiers&metadataPrefix=oai_dc">http://oai.datacite.org/ctrl?verb=ListIdentifiers&amp;metadataPrefix=oai_dc</a></code></li>
-<li><code><a href="http://oai.datacite.org/ctrl?verb=ListRecords&from=2011-06-01T00:00:00Z&metadataPrefix=oai_dc">http://oai.datacite.org/ctrl?verb=ListRecords&amp;from=2011-06-01T00:00:00Z&amp;metadataPrefix=oai_dc</a></code></li>
+<li><code><a href="http://oai.datacite.org/oai?verb=Identify">http://oai.datacite.org/oai?verb=Identify</a></code></li>
+<li><code><a href="http://oai.datacite.org/oai?verb=ListIdentifiers&metadataPrefix=oai_dc">http://oai.datacite.org/oai?verb=ListIdentifiers&amp;metadataPrefix=oai_dc</a></code></li>
+<li><code><a href="http://oai.datacite.org/oai?verb=ListRecords&from=2011-06-01T00:00:00Z&metadataPrefix=oai_dc">http://oai.datacite.org/oai?verb=ListRecords&amp;from=2011-06-01T00:00:00Z&amp;metadataPrefix=oai_dc</a></code></li>
 </ul></p>
 <p>For more details on the protocol, its implementation, and uses please visit the <a href="http://www.openarchives.org/pmh/">OAI-PMH web site</a>.
 <h2>Available Metadata Formats</h2>
