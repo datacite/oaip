@@ -29,7 +29,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 -->
 
    
-<!--
+<!--  
+  2011-06-16 paluchm
+  Added support for contentListSize and cursor values in resumptionToken.
   
   All the elements really needed for EPrints are done but if
   you want to use this XSL for other OAI archive you may want
@@ -552,19 +554,42 @@ p.intro {
 
 </xsl:template>
 
-
-
 <!-- oai resumptionToken -->
-
 <xsl:template match="oai:resumptionToken">
-   <p>There are more results.</p>
+   <xsl:choose>
+   	<xsl:when test="normalize-space(.)">
+   		<p>There are more results.</p>
+   	</xsl:when>
+   	<xsl:otherwise>
+   		<p>There are no more results.</p>
+   	</xsl:otherwise>
+   </xsl:choose>
    <table class="values">
-     <tr><td class="key">resumptionToken:</td>
-     <td class="value"><xsl:value-of select="."/>
-
-<xsl:text> </xsl:text>
-<a class="link" href="?verb={/oai:OAI-PMH/oai:request/@verb}&amp;resumptionToken={.}">Resume</a></td></tr>
-   </table>
+   	<xsl:if test="normalize-space(.)">
+     		<tr><td class="key">resumptionToken:</td>
+     		<td class="value"><xsl:value-of select="."/>
+	 			<xsl:text> </xsl:text>
+				<a class="link" href="?verb={/oai:OAI-PMH/oai:request/@verb}&amp;resumptionToken={.}">Resume</a>
+			</td>
+			</tr>
+   	</xsl:if>
+    <xsl:if test="@completeListSize"> 	
+     	<tr>
+     	<td class="key">completeListSize:</td>
+     	<td class="value">
+     		<xsl:value-of select="@completeListSize"/>
+     	</td>
+     	</tr>
+	</xsl:if>     	
+	<xsl:if test="@cursor">     	
+     	<tr>
+     	<td class="key">cursor:</td>
+     	<td class="value">
+     		<xsl:value-of select="@cursor"/>
+     	</td>
+     	</tr>
+	</xsl:if>     	     	
+   	</table>
 </xsl:template>
 
 <!-- unknown metadata format -->

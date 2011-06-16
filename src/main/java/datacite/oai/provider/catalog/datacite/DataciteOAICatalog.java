@@ -200,8 +200,13 @@ public class DataciteOAICatalog extends AbstractCatalog {
             token.setSet(set);
             token.setPrefix(metadataPrefix);
 
-            listIdentifiersMap.put("resumptionMap", getResumptionMap(token.toString()));
+            listIdentifiersMap.put("resumptionMap", getResumptionMap(token.toString(),numberOfHits,0));
         }
+        else{
+        	//no resumption token but still need to populate completeListSize and cursor values.
+            listIdentifiersMap.put("resumptionMap",getResumptionMap("",numberOfHits,0));        	
+        }
+        
 
         listIdentifiersMap.put("headers", headers.iterator());
         listIdentifiersMap.put("identifiers", identifiers.iterator());
@@ -270,7 +275,7 @@ public class DataciteOAICatalog extends AbstractCatalog {
         int numberOfHits = results.getSecond();
 
         if (datasets == null || datasets.isEmpty()) {
-            throw new OAIInternalServerError("No identifiers found for resumption token");
+            throw new BadResumptionTokenException("No identifiers found for resumption token");
         }
 
         if (logger.isDebugEnabled()){
@@ -301,8 +306,13 @@ public class DataciteOAICatalog extends AbstractCatalog {
             nextToken.setSet(set);
             nextToken.setPrefix(metadataPrefix);
 
-            listIdentifiersMap.put("resumptionMap", getResumptionMap(nextToken.toString()));
+            listIdentifiersMap.put("resumptionMap", getResumptionMap(nextToken.toString(),numberOfHits,previousRecordCount));
         }
+        else{
+        	//no resumption token but still need to populate completeListSize and cursor values.
+            listIdentifiersMap.put("resumptionMap",getResumptionMap("",numberOfHits,previousRecordCount));        	
+        }
+        
 
         listIdentifiersMap.put("headers", headers.iterator());
         listIdentifiersMap.put("identifiers", identifiers.iterator());
@@ -442,8 +452,12 @@ public class DataciteOAICatalog extends AbstractCatalog {
             token.setSet(set);
             token.setPrefix(metadataPrefix);
 
-            listRecordsMap.put("resumptionMap", getResumptionMap(token.toString()));
+            listRecordsMap.put("resumptionMap", getResumptionMap(token.toString(),numberOfHits,0));
         }
+        else{
+        	//no resumption token but still need to populate completeListSize and cursor values.
+            listRecordsMap.put("resumptionMap",getResumptionMap("",numberOfHits,0));        	
+        }        
 
         listRecordsMap.put("records", records.iterator());
 
@@ -511,7 +525,7 @@ public class DataciteOAICatalog extends AbstractCatalog {
         int numberOfHits = results.getSecond();
 
         if (datasets == null || datasets.isEmpty()) {
-            throw new OAIInternalServerError("No records found for resumption token");
+            throw new BadResumptionTokenException("No records found for resumption token");
         }
 
         if (logger.isDebugEnabled()){
@@ -545,8 +559,13 @@ public class DataciteOAICatalog extends AbstractCatalog {
             nextToken.setSet(set);
             nextToken.setPrefix(metadataPrefix);
 
-            listRecordsMap.put("resumptionMap", getResumptionMap(nextToken.toString()));
+            listRecordsMap.put("resumptionMap", getResumptionMap(nextToken.toString(),numberOfHits,previousRecordCount));
         }
+        else{
+        	//no resumption token but still need to populate completeListSize and cursor values.
+            listRecordsMap.put("resumptionMap",getResumptionMap("",numberOfHits,previousRecordCount));        	
+        }
+        
 
         listRecordsMap.put("records", records.iterator());
 
@@ -618,7 +637,7 @@ public class DataciteOAICatalog extends AbstractCatalog {
             sets.add(set.getSetSpec());
         }
 
-        // Add resumption token as necessary
+        // Add resumption token as necessary with completeListSize and cursor values.
         if (setlist.size() < numberOfHits) {
             String tokenId = getTokenId();
 
@@ -629,8 +648,12 @@ public class DataciteOAICatalog extends AbstractCatalog {
             token.setUntilDate(null);
             token.setPrefix(null);
             token.setSet(null);
-
-            listSetsMap.put("resumptionMap",getResumptionMap(token.toString()));
+           
+            listSetsMap.put("resumptionMap",getResumptionMap(token.toString(),numberOfHits,0));
+        }
+        else{
+        	//no resumption token but still need to populate completeListSize and cursor values.
+        	listSetsMap.put("resumptionMap",getResumptionMap("",numberOfHits,0));
         }
 
         listSetsMap.put("sets", sets.iterator());
@@ -674,12 +697,16 @@ public class DataciteOAICatalog extends AbstractCatalog {
             logger.error("listSets error", e);
             throw new OAIInternalServerError(e);
         }
+                
+        if (results == null){ //something not right with parameters passed in (i.e. too big or too small)
+        	throw new BadResumptionTokenException("No sets found for resumption token");
+        }
 
         List<SetRecordBean> setlist = results.getFirst();
-        int numberOfHits = results.getSecond();
-
+        int numberOfHits = results.getSecond();        
+        
         if (setlist == null || setlist.isEmpty()) {
-            throw new OAIInternalServerError("No sets found for resumption token");
+        	throw new BadResumptionTokenException("No sets found for resumption token");
         }
 
         if (logger.isDebugEnabled()){
@@ -706,7 +733,11 @@ public class DataciteOAICatalog extends AbstractCatalog {
             nextToken.setPrefix(null);
             nextToken.setSet(null);
 
-            listSetsMap.put("resumptionMap",getResumptionMap(nextToken.toString()));
+            listSetsMap.put("resumptionMap",getResumptionMap(nextToken.toString(),numberOfHits,previousRecordCount));
+        }
+        else{
+        	//no resumption token but still need to populate completeListSize and cursor values.
+            listSetsMap.put("resumptionMap",getResumptionMap("",numberOfHits,previousRecordCount));        	
         }
 
         listSetsMap.put("sets", sets.iterator());
