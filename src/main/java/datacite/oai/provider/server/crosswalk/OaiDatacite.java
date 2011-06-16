@@ -32,7 +32,7 @@ public class OaiDatacite extends Crosswalk {
     private final String rootElement = "oai_datacite";
     private final String versionElement = "schemaVersion";
     private final String symbolElement = "datacentreSymbol";
-    private final String rqElement = "referenceQuality";
+    private final String rqElement = "isReferenceQuality";
     private final String payloadElement = "payload";
     
     /**
@@ -71,7 +71,7 @@ public class OaiDatacite extends Crosswalk {
      */
     private String buildDocument(DatasetRecordBean rec){        
         StringBuilder doc = new StringBuilder();
-        String[] attribs = new String[]{"xmlns=\""+schemaNamespace+"\""};
+        String[] attribs = new String[]{"xmlns=\""+schemaNamespace+"\"","xsi:schemaLocation=\""+schemaNamespace+" "+schemaLocation+"\""};
         
         doc.append(openTagWithAttrib(rootElement,attribs));        
             doc.append(openTag(rqElement));
@@ -84,7 +84,7 @@ public class OaiDatacite extends Crosswalk {
                 doc.append(StringEscapeUtils.escapeXml(rec.getSymbol()));
             doc.append(closeTag(symbolElement));
             doc.append(openTag(payloadElement));
-                doc.append(rec.getMetadata().replaceAll("(<\\?xml.*\\?>)",""));
+                doc.append(rec.getMetadata());
             doc.append(closeTag(payloadElement));
         doc.append(closeTag(rootElement));
         
