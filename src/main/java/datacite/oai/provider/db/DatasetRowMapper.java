@@ -24,8 +24,6 @@ import datacite.oai.provider.util.ThreadSafeSimpleDateFormat;
  * @author PaluchM
  */
 public class DatasetRowMapper implements RowMapper{
-
-    //private static final Logger logger = Logger.getLogger(DatasetRowMapper.class);
     
     public Object mapRow(ResultSet rs) throws SQLException{
         return mapRow(rs,1);
@@ -41,21 +39,14 @@ public class DatasetRowMapper implements RowMapper{
         boolean refQuality = false;
         boolean isActive = false;
         
-        //String date = "";
-        
         try{
             id = rs.getString("dataset_id");
             symbol = rs.getString("symbol");                                                                        
             metadata = PooledDataSource.blobToString(rs.getBlob("xml"),"UTF8");                
             
-            //date = rs.getString("update_date");
-            //logger.debug("Pre parse date: "+date);
-            
             updateDate = df.parse(rs.getString("update_date"));
             
-            //updateDate = df.parse(date);
-            
-            //logger.debug("Post parse date: "+updateDate);
+
             refQuality = rs.getBoolean("is_ref_quality");
             isActive = rs.getBoolean("is_active");
                 
