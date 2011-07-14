@@ -42,13 +42,10 @@ public class DatasetRowMapper implements RowMapper{
         try{
             id = rs.getString("dataset_id");
             symbol = rs.getString("symbol");                                                                        
-            metadata = PooledDataSource.blobToString(rs.getBlob("xml"),"UTF8");                
-            
-            updateDate = df.parse(rs.getString("update_date"));
-            
-
-            refQuality = rs.getBoolean("is_ref_quality");
+            metadata = PooledDataSource.blobToString(rs.getBlob("xml"),"UTF8");                            
             isActive = rs.getBoolean("is_active");
+            updateDate = df.parse(rs.getString("update_date"));
+            refQuality = rs.getBoolean("is_ref_quality");
                 
             return new DatasetRecordBean(id,metadata,updateDate,refQuality,isActive,symbol);
         }

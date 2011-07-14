@@ -92,7 +92,7 @@ public class MDSSearchService extends Service {
     public DatasetRecordBean getDatasetByID(String id) throws ServiceException {
         DatasetRecordBean dataset = null;
         
-        StringBuilder query = new StringBuilder("select d.id as dataset_id,d.is_ref_quality,d.is_active,DATE_FORMAT(m.created,'");
+        StringBuilder query = new StringBuilder("select d.id as dataset_id,d.is_ref_quality,d.is_active,DATE_FORMAT(GREATEST(m.created,d.updated),'");
         query.append(Constants.DateTime.DATETIME_FORMAT_MYSQL);
         query.append("') as update_date,m.xml,dc.symbol ");
         query.append("from dataset d, metadata m, datacentre dc where m.dataset = d.id and m.metadata_version = (select max(m.metadata_version) from metadata m where m.dataset = d.id) and d.datacentre = dc.id and d.id = ?");
@@ -131,9 +131,9 @@ public class MDSSearchService extends Service {
     public Pair<List<DatasetRecordBean>,Integer> getDatasets(Date updateDateFrom,Date updateDateTo,String setspec,int offset,int length) throws ServiceException {
         ThreadSafeSimpleDateFormat df = new ThreadSafeSimpleDateFormat(Constants.DateTime.DATETIME_FORMAT);
         
-        StringBuilder listquery = new StringBuilder("select d.id as dataset_id,d.is_ref_quality,d.is_active,DATE_FORMAT(m.created,'");
+        StringBuilder listquery = new StringBuilder("select d.id as dataset_id,d.is_ref_quality,d.is_active,DATE_FORMAT(GREATEST(m.created,d.updated),'");
         listquery.append(Constants.DateTime.DATETIME_FORMAT_MYSQL);
-        listquery.append("') as update_date,m.xml,dc.symbol "); 
+        listquery.append("') as update_date,m.xml,dc.symbol ");
         
         StringBuilder countquery = new StringBuilder("select count(d.id) as count ");
                 
@@ -171,10 +171,10 @@ public class MDSSearchService extends Service {
         
         //if dates are present
         if (updateDateFrom != null){
-            ands.add("DATE_FORMAT(m.created,'"+Constants.DateTime.DATETIME_FORMAT_MYSQL+"') >= '"+df.format(updateDateFrom)+"'");
+            ands.add("DATE_FORMAT(GREATEST(m.created,d.updated),'"+Constants.DateTime.DATETIME_FORMAT_MYSQL+"') >= '"+df.format(updateDateFrom)+"'");
         }
         if (updateDateTo != null){
-            ands.add("DATE_FORMAT(m.created,'"+Constants.DateTime.DATETIME_FORMAT_MYSQL+"') <= '"+df.format(updateDateTo)+"'");
+            ands.add("DATE_FORMAT(GREATEST(m.created,d.updated),'"+Constants.DateTime.DATETIME_FORMAT_MYSQL+"') <= '"+df.format(updateDateTo)+"'");
         }
 
         //add doi prefixes to omit from results
@@ -186,7 +186,7 @@ public class MDSSearchService extends Service {
         
         //combine list query and clauses
         listquery = addClauses(listquery,ands,"and");
-        listquery.append("order by m.created desc LIMIT "+offset+","+length);
+        listquery.append("order by update_date desc LIMIT "+offset+","+length);
         
         if (logger.isDebugEnabled()){
             logger.debug("List Query: "+listquery.toString());
