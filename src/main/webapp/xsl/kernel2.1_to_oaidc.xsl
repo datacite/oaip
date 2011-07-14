@@ -133,9 +133,16 @@
 
     <xsl:template match="datacite:resourceType">
         <xsl:for-each select=".">
-            <xsl:element name="dc:type">
-                <xsl:value-of select="."/>
-            </xsl:element>
+            <xsl:if test="normalize-space(@resourceTypeGeneral)">
+                <xsl:element name="dc:type">
+                    <xsl:value-of select="@resourceTypeGeneral"/>
+                </xsl:element>
+            </xsl:if>
+            <xsl:if test="normalize-space(.)">
+                <xsl:element name="dc:type">
+                    <xsl:value-of select="."/>
+                </xsl:element>
+            </xsl:if>
         </xsl:for-each>
     </xsl:template>
 
@@ -154,10 +161,17 @@
     </xsl:template>
 
     <xsl:template match="datacite:relatedIdentifiers">
-        <!-- unimplemented
-            <xsl:for-each select="relatedIdentifier">
-            </xsl:for-each>
-        -->
+        <xsl:for-each select="datacite:relatedIdentifier">
+            <xsl:element name="dc:relation">
+                <xsl:choose>
+                    <xsl:when test="string-length(@relatedIdentifierType) &gt; 0">
+                        <xsl:value-of select="lower-case(@relatedIdentifierType)"/>
+                        <xsl:text>:</xsl:text>
+                    </xsl:when>
+                </xsl:choose>
+                <xsl:value-of select="."/>            
+            </xsl:element>
+        </xsl:for-each>            
     </xsl:template>
 
     <xsl:template match="datacite:sizes">
@@ -186,9 +200,16 @@
 
     <xsl:template match="datacite:descriptions">
         <xsl:for-each select="datacite:description">
-            <xsl:element name="dc:description">
-                <xsl:value-of select="."/>
-            </xsl:element>
+            <xsl:if test="normalize-space(@descriptionType)">
+                <xsl:element name="dc:description">
+                    <xsl:value-of select="@descriptionType"/>
+                </xsl:element>
+            </xsl:if>
+            <xsl:if test="normalize-space(.)">
+                <xsl:element name="dc:description">
+                    <xsl:value-of select="."/>
+                </xsl:element>
+            </xsl:if>
         </xsl:for-each>
     </xsl:template>
 
