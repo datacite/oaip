@@ -44,6 +44,7 @@ public class TransformerService extends Service {
     private static Logger logger = Logger.getLogger(TransformerService.class);
     private Templates kernel2_0ToOaidcTemplates;
     private Templates kernel2_1ToOaidcTemplates;
+    private Templates kernel2_2ToOaidcTemplates;
 
     /**
      * Public constructor
@@ -67,6 +68,11 @@ public class TransformerService extends Service {
             resourcePath = applicationContext.getProperty(Constants.Property.STYLESHEET_KERNEL2_1_TO_OAIDC);
             domSource = buildDOMSource(context.getResourceAsStream(resourcePath));            
             kernel2_1ToOaidcTemplates = TransformerFactory.newInstance().newTemplates(domSource);
+            
+            logger.warn("Loading Kernel2.2 transform");
+            resourcePath = applicationContext.getProperty(Constants.Property.STYLESHEET_KERNEL2_2_TO_OAIDC);
+            domSource = buildDOMSource(context.getResourceAsStream(resourcePath));            
+            kernel2_2ToOaidcTemplates = TransformerFactory.newInstance().newTemplates(domSource);
             
             logger.warn("TransformerService loaded.");
 
@@ -104,6 +110,16 @@ public class TransformerService extends Service {
     public String doTransform_Kernel2_1ToOaidc(String metadata) throws ServiceException{
         return doTransform_kernelToOaidc(metadata,this.kernel2_1ToOaidcTemplates,Constants.SchemaVersion.VERSION_2_1);
     }    
+    
+    /**
+     * Transform DataCite Metadata Scheme 2.1 to OAI Dublin Core.
+     * @param metadata The metadata to transform
+     * @return The resulting metadata as a String
+     * @throws ServiceException
+     */
+    public String doTransform_Kernel2_2ToOaidc(String metadata) throws ServiceException{
+        return doTransform_kernelToOaidc(metadata,this.kernel2_2ToOaidcTemplates,Constants.SchemaVersion.VERSION_2_2);
+    }
     
     /**
      * Transform DataCite Metadata Scheme to OAI Dublin Core.

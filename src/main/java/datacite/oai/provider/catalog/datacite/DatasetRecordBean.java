@@ -36,7 +36,8 @@ public class DatasetRecordBean implements Serializable{
      */
     public static final HashMap<String,String> versionMap = new HashMap<String,String>();
     static{
-        versionMap.put("/schema/kernel-2.1",Constants.SchemaVersion.VERSION_2_1);
+    	versionMap.put("/schema/kernel-2.2",Constants.SchemaVersion.VERSION_2_2);
+    	versionMap.put("/schema/kernel-2.1",Constants.SchemaVersion.VERSION_2_1);
         versionMap.put("/schema/namespace",Constants.SchemaVersion.VERSION_2_1);
         versionMap.put("/meta/kernel-2.0", Constants.SchemaVersion.VERSION_2_0);
         versionMap.put("datacite-metadata-v2.0.xsd",Constants.SchemaVersion.VERSION_2_0);        

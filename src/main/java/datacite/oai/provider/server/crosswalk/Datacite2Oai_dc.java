@@ -57,7 +57,10 @@ public class Datacite2Oai_dc extends Crosswalk{
             ServiceCollection services = ServiceCollection.getInstance();
             TransformerService transformerService = services.getTransformerService();
             
-            if (dataset.getSchemaVersion().equalsIgnoreCase(Constants.SchemaVersion.VERSION_2_1)){
+            if (dataset.getSchemaVersion().equalsIgnoreCase(Constants.SchemaVersion.VERSION_2_2)){
+                result = transformerService.doTransform_Kernel2_2ToOaidc(dataset.getMetadata());
+            }
+            else if (dataset.getSchemaVersion().equalsIgnoreCase(Constants.SchemaVersion.VERSION_2_1)){
                 result = transformerService.doTransform_Kernel2_1ToOaidc(dataset.getMetadata());
             }
             else{
