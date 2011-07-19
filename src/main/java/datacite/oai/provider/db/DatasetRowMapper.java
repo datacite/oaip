@@ -24,7 +24,7 @@ import datacite.oai.provider.util.ThreadSafeSimpleDateFormat;
  * @author PaluchM
  */
 public class DatasetRowMapper implements RowMapper{
-    
+	
     public Object mapRow(ResultSet rs) throws SQLException{
         return mapRow(rs,1);
     }

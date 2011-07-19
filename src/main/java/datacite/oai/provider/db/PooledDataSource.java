@@ -17,6 +17,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.pool.ObjectPool;
 import org.apache.commons.dbcp.ConnectionFactory;
 import org.apache.commons.dbcp.PoolingDataSource;
@@ -25,6 +27,7 @@ import org.apache.commons.dbcp.DriverManagerConnectionFactory;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 
+import datacite.oai.provider.util.BOMUtil;
 import datacite.oai.provider.util.Log4jPrintWriter;
 
 /**
@@ -33,8 +36,8 @@ import datacite.oai.provider.util.Log4jPrintWriter;
  *
  */
 public class PooledDataSource {
-
-    private static Logger logger = Logger.getLogger(PooledDataSource.class);   
+	
+	private static Logger logger = Logger.getLogger(PooledDataSource.class);   
     private PoolingDataSource pds;
 
     /*************************************/
@@ -92,9 +95,10 @@ public class PooledDataSource {
         }                   
 
         bytes = blb.getBytes((long)1,(int)blb.length());
+        bytes = BOMUtil.removeBOM(bytes,enc);
+        
         return new String(bytes,enc);                   
     }
-    
     
     
     /********************************/

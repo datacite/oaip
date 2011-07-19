@@ -69,7 +69,8 @@ public class DatasetRecordBean implements Serializable{
         this.refQuality = refQuality;
         this.isActive = isActive;
         this.symbol = symbol;
-        setMetadata(fixMetadata(metadata));
+
+        setMetadata(metadata);
     }
 
     public String getId() {
@@ -77,9 +78,8 @@ public class DatasetRecordBean implements Serializable{
     }
 
     public void setMetadata(String metadata){
-        //remove xml declaration and comment blocks
-        this.metadata = metadata.replaceAll("(<!--.*-->)","").replaceAll("(<\\?xml.*\\?>)","");
-        
+        //remove xml declaration, comment blocks, and everything before <resource>
+        this.metadata = metadata.replaceAll("(<!--.*-->)","").replaceAll("(<\\?xml.*\\?>)","");        
         setSchemaVersion(determineSchemaVersion(this.metadata));
     }
     
@@ -164,19 +164,6 @@ public class DatasetRecordBean implements Serializable{
         
         return sets;
     }
-        
-    
-    //TODO: remove this
-    /**
-     * Temporary fix for metadata with bad chars in MDS (\012 \011 \015 etc.).
-     * @param metadata
-     * @return
-     */
-    private String fixMetadata(String metadata){
-        metadata = metadata.replaceAll("((\\\\[0-9]{3})+)","");                
-        return metadata;
-    }
-    
 
     /**
      * Attempts to determine the schema version that this record adheres to.
@@ -195,8 +182,5 @@ public class DatasetRecordBean implements Serializable{
         // default version
         return DEFAULT_SCHEMA_VERSION;
     }
-
-
-    
     
 }
