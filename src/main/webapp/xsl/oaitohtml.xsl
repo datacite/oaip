@@ -33,6 +33,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   2011-06-16 paluchm
   Added support for contentListSize and cursor values in resumptionToken.
   
+  2011-07-22 paluchm
+  Updated to show other metadata format buttons, remove 'unknown' tag for those formats.
+  
+  ....
+  
   All the elements really needed for EPrints are done but if
   you want to use this XSL for other OAI archive you may want
   to make some minor changes or additions.
@@ -515,6 +520,8 @@ p.intro {
 
       <xsl:value-of select="oai:identifier"/>
       <xsl:text> </xsl:text><a class="link" href="?verb=GetRecord&amp;metadataPrefix=oai_dc&amp;identifier={oai:identifier}">oai_dc</a>
+      <xsl:text> </xsl:text><a class="link" href="?verb=GetRecord&amp;metadataPrefix=oai_datacite&amp;identifier={oai:identifier}">oai_datacite</a>
+      <xsl:text> </xsl:text><a class="link" href="?verb=GetRecord&amp;metadataPrefix=datacite&amp;identifier={oai:identifier}">datacite</a>
       <xsl:text> </xsl:text><a class="link" href="?verb=ListMetadataFormats&amp;identifier={oai:identifier}">formats</a>
     </td></tr>
     <tr><td class="key">Datestamp</td>
@@ -592,15 +599,24 @@ p.intro {
    	</table>
 </xsl:template>
 
-<!-- unknown metadata format -->
-
+<!-- other metadata format -->
 <xsl:template match="oai:metadata/*" priority='-100'>
-  <h3>Unknown Metadata Format</h3>
-  <div class="xmlSource">
+  <xsl:choose>
+  	<xsl:when test="name()='oai_datacite'">
+  		<h3>OAI DataCite Metadata (oai_datacite)</h3>
+  	</xsl:when>
+  	<xsl:when test="name()='resource'">
+  		<h3>DataCite Metadata (datacite)</h3>
+  	</xsl:when>
+  	<xsl:otherwise>
+		<h3>Unknown Metadata Format</h3>  	
+  	</xsl:otherwise>
+  </xsl:choose>
+  <div class="xmlSource">    
     <xsl:apply-templates select="." mode='xmlMarkup' />
-
   </div>
 </xsl:template>
+
 
 <!-- oai_dc record -->
 
