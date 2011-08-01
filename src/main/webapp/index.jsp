@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="main.css" />
 </head>
 <body>
-<h1><img src="https://api.datacite.org/resources/images/dc-logo.gif"> OAI-PMH Data Provider</img> <small>Beta</small></h1> 
+<h1><img src="https://mds.datacite.org/resources/images/dc-logo.gif"> OAI-PMH Data Provider</img> <small>Beta</small></h1> 
 <h2>What is this service?</h2>
 <p>This <a href="http://www.datacite.org">DataCite</a> service exposes metadata stored in the DataCite Metadata Store (<a href="http://mds.datacite.org">MDS</a>) using the Open Archives Initiative Protocol for Metadata Harvesting (<a href="http://www.openarchives.org/pmh/">OAI-PMH</a>).</p>
 <h2>Who can use this service?</h2>
