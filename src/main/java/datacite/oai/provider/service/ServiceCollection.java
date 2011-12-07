@@ -54,7 +54,7 @@ public class ServiceCollection
     private ServiceCollection( ServletContext servletContext ) throws Exception
     {
         // Initialize our services
-        mdsSearch = new MDSSearchService(servletContext);
+        mdsSearch = new MDSSearchServiceSqlImpl(servletContext);
         transformer = new TransformerService(servletContext);
     }
 
