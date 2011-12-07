@@ -1,6 +1,7 @@
 package datacite.oai.provider.service;
 
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,12 +16,14 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
+import org.apache.solr.common.SolrDocumentList;
 
 import datacite.oai.provider.ApplicationContext;
 import datacite.oai.provider.Constants;
 import datacite.oai.provider.catalog.datacite.DatasetRecordBean;
 import datacite.oai.provider.catalog.datacite.SetRecordBean;
 import datacite.oai.provider.util.Pair;
+import datacite.oai.provider.util.ThreadSafeSimpleDateFormat;
 
 public class MDSSearchServiceSolrImpl extends MDSSearchService {
 
@@ -30,15 +33,17 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
 
     private CommonsHttpSolrServer solrServer;
 
+    ThreadSafeSimpleDateFormat dateFormat = new ThreadSafeSimpleDateFormat(Constants.DateTime.DATETIME_FORMAT_SOLR);
+
     public MDSSearchServiceSolrImpl(ServletContext servletContext) throws ServiceException {
         super(servletContext);
         try {
-            ApplicationContext context = ApplicationContext.getInstance(); 
-            
+            ApplicationContext context = ApplicationContext.getInstance();
+
             String url = context.getProperty(Constants.Database.MDS_SOLR_URL);
             String username = context.getProperty(Constants.Database.MDS_SOLR_USERNAME);
             String password = context.getProperty(Constants.Database.MDS_SOLR_PASSWORD);
-            
+
             sqlService = new MDSSearchServiceSqlImpl(servletContext);
             solrServer = new CommonsHttpSolrServer(url);
             setSolrCredentials(username, password);
@@ -61,13 +66,13 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
         try {
             QueryResponse response = solrServer.query(query);
             SolrDocument doc = response.getResults().get(0);
-            return convertSolrDocumentToRecord(doc);
+            return convertToRecord(doc);
         } catch (SolrServerException e) {
             throw new ServiceException(e);
         }
     }
 
-    private DatasetRecordBean convertSolrDocumentToRecord(SolrDocument doc) {
+    private DatasetRecordBean convertToRecord(SolrDocument doc) {
         String id = (String) doc.getFieldValue("dataset_id");
         String symbol = (String) doc.getFieldValue("datacentre_symbol");
         String metadata = new String((byte[]) doc.getFieldValue("xml"));
@@ -81,11 +86,43 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
         return record;
     }
 
+    private List<DatasetRecordBean> convertToRecords(SolrDocumentList docs) {
+        List<DatasetRecordBean> list = new ArrayList<DatasetRecordBean>();
+        for (SolrDocument doc : docs)
+            list.add(convertToRecord(doc));
+        return list;
+    }
+
     @Override
     public Pair<List<DatasetRecordBean>, Integer> getDatasets(Date updateDateFrom, Date updateDateTo, String setspec,
             int offset, int length) throws ServiceException {
-        // TODO Auto-generated method stub
-        return null;
+        SolrQuery query = new SolrQuery();
+        query.setQuery("*:*");
+        query.setRows(length);
+        query.setStart(offset);
+
+        if (setspec != null) {
+            String field = setspec.contains(".") ? "datacentre_symbol" : "allocator_symbol";
+            query.addFilterQuery(field + ":" + setspec);
+        }
+
+        String from = dateFormat.format(updateDateFrom);
+        String to = dateFormat.format(updateDateTo);
+
+        query.addFilterQuery("uploaded:[" + from + " TO " + to + "]");
+
+        logger.info(query);
+
+        try {
+            QueryResponse response = solrServer.query(query);
+            SolrDocumentList results = response.getResults();
+
+            List<DatasetRecordBean> records = convertToRecords(results);
+            int count = (int) results.getNumFound();
+            return new Pair<List<DatasetRecordBean>, Integer>(records, count);
+        } catch (SolrServerException e) {
+            throw new ServiceException(e);
+        }
     }
 
     @Override

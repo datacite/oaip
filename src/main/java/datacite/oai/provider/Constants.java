@@ -32,6 +32,7 @@ public final class Constants {
     public static class DateTime{
         public static final String DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
         public static final String DATETIME_FORMAT_MYSQL = "%Y-%m-%dT%TZ";
+        public static final String DATETIME_FORMAT_SOLR = "yyyy-MM-dd'T'HH:mm:ss'Z'";
         
         public static final String MIN_FROM_TIME = "00:00:00";
         public static final String MIN_FROM_DATE = "0001-01-01";
