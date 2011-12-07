@@ -75,6 +75,11 @@
       <classifier>dom</classifier>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>org.apache.solr</groupId>
+      <artifactId>solr-solrj</artifactId>
+      <version>3.4.0</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>oaip</finalName>
