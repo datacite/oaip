@@ -12,6 +12,7 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrQuery.ORDER;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
@@ -100,6 +101,7 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
         query.setQuery("*:*");
         query.setRows(length);
         query.setStart(offset);
+        query.setSortField("uploaded", ORDER.asc);
 
         if (setspec != null) {
             String field = setspec.contains(".") ? "datacentre_symbol" : "allocator_symbol";
