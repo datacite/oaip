@@ -26,8 +26,6 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
 
     private static final Logger logger = Logger.getLogger(MDSSearchServiceSolrImpl.class);
 
-    private String url = "http://localhost:8080/search";
-
     private MDSSearchServiceSqlImpl sqlService;
 
     private CommonsHttpSolrServer solrServer;
@@ -37,8 +35,9 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
         try {
             ApplicationContext context = ApplicationContext.getInstance(); 
             
-            String username = "foo";
-            String password = "bar";
+            String url = context.getProperty(Constants.Database.MDS_SOLR_URL);
+            String username = context.getProperty(Constants.Database.MDS_SOLR_USERNAME);
+            String password = context.getProperty(Constants.Database.MDS_SOLR_PASSWORD);
             
             sqlService = new MDSSearchServiceSqlImpl(servletContext);
             solrServer = new CommonsHttpSolrServer(url);

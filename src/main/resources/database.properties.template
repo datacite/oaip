@@ -6,3 +6,7 @@ mds.db.url=[connection string]
 mds.db.driver=[driver class]
 mds.db.pool.start=[min pool size value]
 mds.db.pool.max=[max pool size value]
+
+mds.solr.url=http://search.datacite.org
+mds.solr.username=[username]
+mds.solr.password=[password]

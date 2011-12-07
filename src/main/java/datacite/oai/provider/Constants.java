@@ -93,6 +93,10 @@ public final class Constants {
         public static final String MDS_DB_DRIVER = "mds.db.driver";
         public static final String MDS_DB_POOL_START = "mds.db.pool.start";
         public static final String MDS_DB_POOL_MAX = "mds.db.pool.max";
-        
+
+        //MDS Solr properties
+        public static final String MDS_SOLR_USERNAME = "mds.solr.username";
+        public static final String MDS_SOLR_PASSWORD = "mds.solr.password";
+        public static final String MDS_SOLR_URL = "mds.solr.url";
     }
 }
