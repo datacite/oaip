@@ -89,7 +89,7 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
         return record;
     }
 
-    private List<DatasetRecordBean> convertToRecords(SolrDocumentList docs) throws UnsupportedEncodingException  {
+    private List<DatasetRecordBean> convertToRecords(SolrDocumentList docs) throws UnsupportedEncodingException {
         List<DatasetRecordBean> list = new ArrayList<DatasetRecordBean>();
         for (SolrDocument doc : docs)
             list.add(convertToRecord(doc));
@@ -105,9 +105,19 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
         query.setStart(offset);
         query.setSortField("uploaded", ORDER.asc);
 
-        if (setspec != null) {
-            String field = setspec.contains(".") ? "datacentre_symbol" : "allocator_symbol";
-            query.addFilterQuery(field + ":" + setspec);
+        if (setspec != null && setspec.trim().length() > 0) {
+            setspec = setspec.trim().toUpperCase();
+
+            if (setspec.equalsIgnoreCase(Constants.Set.REF_QUALITY)) {
+                query.addFilterQuery("refQuality:true");
+            } else {
+                if (setspec.endsWith(Constants.Set.REF_QUALITY_SUFFIX)) {
+                    query.addFilterQuery("refQuality:true");
+                    setspec = setspec.substring(0, setspec.lastIndexOf(Constants.Set.REF_QUALITY_SUFFIX));
+                }
+                String field = setspec.contains(".") ? "datacentre_symbol" : "allocator_symbol";
+                query.addFilterQuery(field + ":" + setspec);
+            }
         }
 
         String from = dateFormat.format(updateDateFrom);
