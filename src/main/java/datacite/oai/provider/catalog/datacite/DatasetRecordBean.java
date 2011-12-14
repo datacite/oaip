@@ -28,22 +28,6 @@ public class DatasetRecordBean implements Serializable{
 
     private static final long serialVersionUID = 1L;
     
-    public static final String DEFAULT_SCHEMA_VERSION = Constants.SchemaVersion.VERSION_2_0;    
-    /**
-     * DataCite Schema version map
-     * key = schema version indicator string in metadata (i.e. "datacite-metadata-v2.0.xsd")
-     * value = schema version number as a string (i.e. "2.1")
-     */
-    public static final HashMap<String,String> versionMap = new HashMap<String,String>();
-    static{
-    	versionMap.put("/schema/kernel-2.2",Constants.SchemaVersion.VERSION_2_2);
-    	versionMap.put("/schema/kernel-2.1",Constants.SchemaVersion.VERSION_2_1);
-        versionMap.put("/schema/namespace",Constants.SchemaVersion.VERSION_2_1);
-        versionMap.put("/meta/kernel-2.0", Constants.SchemaVersion.VERSION_2_0);
-        versionMap.put("datacite-metadata-v2.0.xsd",Constants.SchemaVersion.VERSION_2_0);        
-    }
-    
-    
     private String id;
     private String metadata;
     private Date updateDate;
@@ -63,12 +47,13 @@ public class DatasetRecordBean implements Serializable{
      * @param isActive
      * @param symbol
      */
-    public DatasetRecordBean(String id,String metadata,Date updateDate,boolean refQuality,boolean isActive,String symbol){
+    public DatasetRecordBean(String id,String metadata,String schemaVersion, Date updateDate,boolean refQuality,boolean isActive,String symbol){
         this.id = id;        
         this.updateDate = updateDate;
         this.refQuality = refQuality;
         this.isActive = isActive;
         this.symbol = symbol;
+        this.schemaVersion = schemaVersion;
 
         setMetadata(metadata);
     }
@@ -80,7 +65,6 @@ public class DatasetRecordBean implements Serializable{
     public void setMetadata(String metadata){
         //remove xml declaration, comment blocks, and everything before <resource>
         this.metadata = metadata.replaceAll("(<!--.*-->)","").replaceAll("(<\\?xml.*\\?>)","");        
-        setSchemaVersion(determineSchemaVersion(this.metadata));
     }
     
     public String getMetadata() {
@@ -165,22 +149,4 @@ public class DatasetRecordBean implements Serializable{
         return sets;
     }
 
-    /**
-     * Attempts to determine the schema version that this record adheres to.
-     * @param metadata
-     * @return
-     */
-    private String determineSchemaVersion(String metadata){
-        metadata = metadata.toLowerCase();
-        
-        for (String key : versionMap.keySet()){
-            if (metadata.contains(key.toLowerCase())){
-                return versionMap.get(key);
-            }
-        }
-        
-        // default version
-        return DEFAULT_SCHEMA_VERSION;
-    }
-    
 }

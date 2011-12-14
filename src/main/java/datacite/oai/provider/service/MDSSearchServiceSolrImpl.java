@@ -85,8 +85,7 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
         Boolean isActive = (Boolean) doc.getFieldValue("has_metadata");
         String schemaVersion = (String) doc.getFieldValue("schema_version");
 
-        DatasetRecordBean record = new DatasetRecordBean(id, metadata, updateDate, refQuality, isActive, symbol);
-        record.setSchemaVersion(schemaVersion);
+        DatasetRecordBean record = new DatasetRecordBean(id, metadata, schemaVersion, updateDate, refQuality, isActive, symbol);
         return record;
     }
 
