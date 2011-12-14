@@ -5,6 +5,8 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.servlet.ServletContext;
 
@@ -15,6 +17,8 @@ import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrQuery.ORDER;
 import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
+import org.apache.solr.client.solrj.response.FacetField;
+import org.apache.solr.client.solrj.response.FacetField.Count;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
@@ -141,7 +145,37 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
 
     @Override
     public Pair<List<SetRecordBean>, Integer> getSets() throws ServiceException {
-        return sqlService.getSets();
+        SolrQuery query = new SolrQuery();
+        query.setQuery("*:*");
+        query.setRows(0);
+        query.setFacet(true);
+        query.setFacetLimit(-1);
+        query.addFacetField("allocator_facet", "datacentre_facet");
+
+        try {
+            QueryResponse response = solrServer.query(query);
+
+            SortedSet<String> facetValues = new TreeSet<String>();
+            for (FacetField facet : response.getFacetFields()) {
+                for (Count count : facet.getValues()) {
+                    facetValues.add(count.getName());
+                }
+            }
+
+            ArrayList<SetRecordBean> sets = new ArrayList<SetRecordBean>();
+            for (String facetValue : facetValues) {
+                String[] parts = facetValue.split(" - ", 2);
+                String symbol = parts[0];
+                String name = parts[1];
+                sets.add(new SetRecordBean(symbol, name));
+            }
+
+            return new Pair<List<SetRecordBean>, Integer>(sets, sets.size());
+
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+
     }
 
     @Override
