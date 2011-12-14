@@ -35,8 +35,6 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
 
     private static final Logger logger = Logger.getLogger(MDSSearchServiceSolrImpl.class);
 
-    private MDSSearchServiceSqlImpl sqlService;
-
     private CommonsHttpSolrServer solrServer;
 
     ThreadSafeSimpleDateFormat dateFormat = new ThreadSafeSimpleDateFormat(Constants.DateTime.DATETIME_FORMAT_SOLR);
@@ -50,7 +48,6 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
             String username = context.getProperty(Constants.Database.MDS_SOLR_USERNAME);
             String password = context.getProperty(Constants.Database.MDS_SOLR_PASSWORD);
 
-            sqlService = new MDSSearchServiceSqlImpl(servletContext);
             solrServer = new CommonsHttpSolrServer(url);
             setSolrCredentials(username, password);
         } catch (Exception e) {
@@ -180,7 +177,6 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
 
     @Override
     public void destroy() {
-        sqlService.destroy();
     }
 
 }
