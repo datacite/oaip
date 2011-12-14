@@ -9,11 +9,6 @@
 	<!-- file containing DB connection strings -->
 	<Parameter name="db.properties" value="/WEB-INF/classes/database.properties" />
 		
-	<!-- Comma separated list of prefixes to omit from MDS results 
-         Warning: When using solr implementation of MDSSearchService this is not considered!  
-    -->
-	<Parameter name="mds.prefixes.omit" value="10.5072" />
-	
 	<!-- Repository prefixes. Comma separated list of the different -->
 	<!-- repositories that will have their own controller servlet implementation. -->
 	<!-- Each prefix MUST have a set of OAI properties below -->

@@ -59,8 +59,6 @@ public final class Constants {
         public static final String MDS_SETCACHE_EXPIRY_SECONDS = "mdssetcache.expiry.seconds";        
         
         public static final String DB_PROPERTIES_FILE = "db.properties";        
-        
-        public static final String MDS_PREFIXES_OMIT = "mds.prefixes.omit";
     }
 
     /**
