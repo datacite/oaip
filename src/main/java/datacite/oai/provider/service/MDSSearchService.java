@@ -76,12 +76,4 @@ public abstract class MDSSearchService extends Service {
      */
     public abstract Pair<List<SetRecordBean>,Integer> getSets() throws ServiceException;
     
-    /**
-     * Returns a Pair object containing the list of resulting SetRecordBean objects and an integer which is the total record count for the query.
-     * @param offset The offset at which to begin returning records from the resulting dataset.
-     * @param length The number of records to return.
-     * @return Pair object containing result list and record count.
-     * @throws ServiceException
-     */
-    public abstract Pair<List<SetRecordBean>,Integer> getSets(int offset,int length) throws ServiceException;
 }

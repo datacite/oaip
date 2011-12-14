@@ -179,11 +179,6 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
     }
 
     @Override
-    public Pair<List<SetRecordBean>, Integer> getSets(int offset, int length) throws ServiceException {
-        return sqlService.getSets(offset, length);
-    }
-
-    @Override
     public void destroy() {
         sqlService.destroy();
     }
