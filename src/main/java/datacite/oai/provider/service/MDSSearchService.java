@@ -12,23 +12,13 @@ package datacite.oai.provider.service;
 *******************************************************************************/
 
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 
-import org.apache.log4j.Logger;
-
-import datacite.oai.provider.ApplicationContext;
-import datacite.oai.provider.Constants;
-import datacite.oai.provider.catalog.datacite.SetRecordBean;
 import datacite.oai.provider.catalog.datacite.DatasetRecordBean;
-import datacite.oai.provider.db.DatasetRowMapper;
-import datacite.oai.provider.db.PooledDataSource;
-import datacite.oai.provider.db.SetRowMapper;
+import datacite.oai.provider.catalog.datacite.SetRecordBean;
 import datacite.oai.provider.util.Pair;
-import datacite.oai.provider.util.ThreadSafeSimpleDateFormat;
-import datacite.oai.provider.util.property.PropertyNotFoundException;
 
 /**
  * Encapsulates all methods required for returning Records and Sets from the DataCite MDS.
