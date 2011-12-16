@@ -65,6 +65,7 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
     public DatasetRecordBean getDatasetByID(String id) throws ServiceException {
         SolrQuery query = new SolrQuery();
         query.setQuery("dataset_id:" + id);
+        query.addFilterQuery("has_metadata:true");
 
         try {
             QueryResponse response = solrServer.query(query);
@@ -108,6 +109,7 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
         query.setRows(length);
         query.setStart(offset);
         query.setSortField("uploaded", ORDER.asc);
+        query.addFilterQuery("has_metadata:true");
 
         if (setspec != null && setspec.trim().length() > 0) {
             setspec = setspec.trim().toUpperCase();
