@@ -68,6 +68,8 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
 
         try {
             QueryResponse response = solrServer.query(query);
+            if (response.getResults().isEmpty())
+                return null;
             SolrDocument doc = response.getResults().get(0);
             return convertToRecord(doc);
         } catch (Exception e) {
