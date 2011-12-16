@@ -79,7 +79,9 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
         String id = (String) doc.getFieldValue("dataset_id");
         String symbol = (String) doc.getFieldValue("datacentre_symbol");
         byte[] xml = (byte[]) doc.getFieldValue("xml");
-        String metadata = new String(BOMUtil.removeBOM(xml, "UTF-8"), "UTF-8");
+        String metadata = ""; 
+        if (xml != null) 
+          metadata = new String(BOMUtil.removeBOM(xml, "UTF-8"), "UTF-8");
         Date updateDate = (Date) doc.getFieldValue("uploaded");
         Boolean refQuality = (Boolean) doc.getFieldValue("refQuality");
         Boolean isActive = (Boolean) doc.getFieldValue("has_metadata");
