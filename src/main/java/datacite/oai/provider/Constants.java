@@ -85,8 +85,6 @@ public final class Constants {
     /** Holds constants for database connections **/
     public static class Database{
         //MDS Solr properties
-        public static final String MDS_SOLR_USERNAME = "mds.solr.username";
-        public static final String MDS_SOLR_PASSWORD = "mds.solr.password";
         public static final String MDS_SOLR_URL = "mds.solr.url";
     }
 }

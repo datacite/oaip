@@ -66,4 +66,10 @@ public abstract class MDSSearchService extends Service {
      */
     public abstract Pair<List<SetRecordBean>,Integer> getSets() throws ServiceException;
     
+    /**
+     * Returns a boolean indicating the status of this service. 
+     * @return A boolean indicating the service status (True = OK, False = Service unavailable for any reason).
+     * @throws ServiceException
+     */
+    public abstract boolean getStatus() throws ServiceException;
 }

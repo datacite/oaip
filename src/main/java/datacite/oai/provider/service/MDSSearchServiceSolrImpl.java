@@ -1,7 +1,17 @@
 package datacite.oai.provider.service;
 
+/*******************************************************************************
+* Copyright (c) 2011 DataCite
+*
+* All rights reserved. This program and the accompanying 
+* materials are made available under the terms of the 
+* Apache License, Version 2.0 which accompanies 
+* this distribution, and is available at 
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+*******************************************************************************/
+
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,9 +20,6 @@ import java.util.TreeSet;
 
 import javax.servlet.ServletContext;
 
-import org.apache.commons.httpclient.Credentials;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
-import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrQuery.ORDER;
@@ -20,6 +27,7 @@ import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
 import org.apache.solr.client.solrj.response.FacetField;
 import org.apache.solr.client.solrj.response.FacetField.Count;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.client.solrj.response.SolrPingResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 
@@ -43,23 +51,13 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
         super(servletContext);
         try {
             ApplicationContext context = ApplicationContext.getInstance();
-
+            
             String url = context.getProperty(Constants.Database.MDS_SOLR_URL);
-            String username = context.getProperty(Constants.Database.MDS_SOLR_USERNAME);
-            String password = context.getProperty(Constants.Database.MDS_SOLR_PASSWORD);
-
             solrServer = new CommonsHttpSolrServer(url);
-            setSolrCredentials(username, password);
         } catch (Exception e) {
             throw new ServiceException(e);
         }
-    }
-
-    private void setSolrCredentials(String username, String password) throws MalformedURLException {
-        AuthScope scope = new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT, null, null);
-        Credentials credentials = new UsernamePasswordCredentials(username, password);
-        solrServer.getHttpClient().getState().setCredentials(scope, credentials);
-    }
+    }    
 
     @Override
     public DatasetRecordBean getDatasetByID(String id) throws ServiceException {
@@ -180,8 +178,35 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
 
     }
 
+	@Override
+	public boolean getStatus() throws ServiceException {
+		logger.info("MDS Search Service status check...");
+		
+		try{
+			SolrPingResponse response = solrServer.ping();
+			if (response != null && response.getStatus() == 0){
+				logger.info("Service status: OK");
+				logger.info("[Elapsed time: "+response.getElapsedTime()+" Status code: "+response.getStatus()+"]");
+				return true;				
+			}
+			else{
+				logger.warn("Service status: MDS search service unavailable.");
+				if (response != null){
+					logger.warn("[Elapsed time: "+response.getElapsedTime()+" Status code: "+response.getStatus()+"]");
+				}
+				return false;
+			}
+		}
+		catch(Exception e){
+			throw new ServiceException(e);
+		}
+	}
+
+	
     @Override
     public void destroy() {
     }
+
+
 
 }

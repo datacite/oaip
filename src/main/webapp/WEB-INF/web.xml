@@ -32,6 +32,12 @@
       <servlet-name>datacite</servlet-name>
       <url-pattern>/oai</url-pattern>
     </servlet-mapping>
+    
+    <servlet-mapping>
+      <servlet-name>datacite</servlet-name>
+      <url-pattern>/status</url-pattern>
+    </servlet-mapping>
+    
 
     <session-config>
       <session-timeout>30</session-timeout>

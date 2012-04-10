@@ -1,6 +1,5 @@
 package datacite.oai.provider;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.HashMap;

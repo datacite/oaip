@@ -15,11 +15,9 @@ To use this service please go to [http://oai.datacite.org](http://oai.datacite.o
 You will need Maven 2.2.1 and JDK 6 in your system (OpenJDK from Ubuntu
 works fine).
 
-### mysql setup
+### Solr setup
 
-This application is configured to connect to a MySQL database. The database structure that it
-is configured to use is that of the MDS. For more information please see the DataCite MDS project
-on GitHub. 
+This application is configured to connect to a Solr instance for all searching and record retrieval. 
 
 ## Java dependencies
 
@@ -49,7 +47,7 @@ local environment.
 
 ### src/main/resources/database.properties
 
-your database configuration, password etc.
+your database(Solr) configuration.
 
 ### src/main/resources/log4j.properties
 

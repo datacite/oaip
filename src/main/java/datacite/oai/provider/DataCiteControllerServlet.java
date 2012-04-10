@@ -1,5 +1,7 @@
 package datacite.oai.provider;
 
+import org.apache.log4j.Logger;
+
 /*******************************************************************************
 * Copyright (c) 2011 DataCite
 *
@@ -10,8 +12,6 @@ package datacite.oai.provider;
 * http://www.apache.org/licenses/LICENSE-2.0
 *
 *******************************************************************************/
-
-import org.apache.log4j.Logger;
 
 /**
  * Controller servlet specific to the DataCite MDS repository
