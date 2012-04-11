@@ -18,8 +18,12 @@ import org.oclc.oai.server.verb.CannotDisseminateFormatException;
 import org.oclc.oai.server.verb.OAIInternalServerError;
 
 import datacite.oai.provider.catalog.datacite.DatasetRecordBean;
+import datacite.oai.provider.util.XMLUtil;
 
 public class DataciteDirect extends Crosswalk {
+	
+	/** The metadata prefix of this result format*/
+	public static final String METADATA_PREFIX = "datacite";
 
     public DataciteDirect(Properties properties) throws OAIInternalServerError {
         super("http://datacite.org/schema/nonexistant http://schema.datacite.org/meta/nonexistant/nonexistant.xsd");
@@ -35,10 +39,15 @@ public class DataciteDirect extends Crosswalk {
     }
 
     @Override
-    public String createMetadata(Object nativeItem) throws CannotDisseminateFormatException {
-        DatasetRecordBean dataset = (DatasetRecordBean)nativeItem;
-        String result = dataset.getMetadata();
+    public String createMetadata(Object nativeItem) throws CannotDisseminateFormatException{
+        try{
+        	DatasetRecordBean dataset = (DatasetRecordBean)nativeItem;
+        	String result = XMLUtil.toXMLString(dataset.getMetadata(),"UTF-8");
 
-        return result;
+        	return result;
+        }
+        catch(Exception e){
+        	throw (CannotDisseminateFormatException)new CannotDisseminateFormatException(METADATA_PREFIX).initCause(e);
+        }
     }
 }

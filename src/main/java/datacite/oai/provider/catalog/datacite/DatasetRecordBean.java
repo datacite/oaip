@@ -28,7 +28,9 @@ public class DatasetRecordBean implements Serializable{
     private static final long serialVersionUID = 1L;
     
     private String id;
-    private String metadata;
+    
+    private byte[] metadata;
+    
     private Date updateDate;
     
     private String symbol;
@@ -46,7 +48,7 @@ public class DatasetRecordBean implements Serializable{
      * @param isActive
      * @param symbol
      */
-    public DatasetRecordBean(String id,String metadata,String schemaVersion, Date updateDate,boolean refQuality,boolean isActive,String symbol){
+    public DatasetRecordBean(String id,byte[] metadata,String schemaVersion, Date updateDate,boolean refQuality,boolean isActive,String symbol){
         this.id = id;        
         this.updateDate = updateDate;
         this.refQuality = refQuality;
@@ -61,12 +63,11 @@ public class DatasetRecordBean implements Serializable{
         return this.id;
     }
 
-    public void setMetadata(String metadata){
-        //remove xml declaration, comment blocks, and everything before <resource>
-        this.metadata = metadata.replaceAll("(<!--.*-->)","").replaceAll("(<\\?xml.*\\?>)","");        
+    public void setMetadata(byte[] metadata){
+    	this.metadata = metadata;
     }
     
-    public String getMetadata() {
+    public byte[] getMetadata() {
         return this.metadata;
     }
 

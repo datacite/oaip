@@ -35,7 +35,6 @@ import datacite.oai.provider.ApplicationContext;
 import datacite.oai.provider.Constants;
 import datacite.oai.provider.catalog.datacite.DatasetRecordBean;
 import datacite.oai.provider.catalog.datacite.SetRecordBean;
-import datacite.oai.provider.util.BOMUtil;
 import datacite.oai.provider.util.Pair;
 import datacite.oai.provider.util.ThreadSafeSimpleDateFormat;
 
@@ -80,15 +79,12 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
         String id = (String) doc.getFieldValue("dataset_id");
         String symbol = (String) doc.getFieldValue("datacentre_symbol");
         byte[] xml = (byte[]) doc.getFieldValue("xml");
-        String metadata = ""; 
-        if (xml != null) 
-          metadata = new String(BOMUtil.removeBOM(xml, "UTF-8"), "UTF-8");
         Date updateDate = (Date) doc.getFieldValue("uploaded");
         Boolean refQuality = (Boolean) doc.getFieldValue("refQuality");
         Boolean isActive = (Boolean) doc.getFieldValue("has_metadata");
         String schemaVersion = (String) doc.getFieldValue("schema_version");
 
-        DatasetRecordBean record = new DatasetRecordBean(id, metadata, schemaVersion, updateDate, refQuality, isActive, symbol);
+        DatasetRecordBean record = new DatasetRecordBean(id, xml, schemaVersion, updateDate, refQuality, isActive, symbol);
         return record;
     }
 

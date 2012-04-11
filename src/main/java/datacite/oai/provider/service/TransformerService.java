@@ -11,10 +11,10 @@ package datacite.oai.provider.service;
 *
 *******************************************************************************/
 
-
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringReader;
+import java.io.InputStreamReader;
 import java.io.StringWriter;
 
 import javax.servlet.ServletContext;
@@ -45,6 +45,7 @@ public class TransformerService extends Service {
     private Templates kernel2_0ToOaidcTemplates;
     private Templates kernel2_1ToOaidcTemplates;
     private Templates kernel2_2ToOaidcTemplates;
+    private Templates kernel2_3ToOaidcTemplates;
 
     /**
      * Public constructor
@@ -74,6 +75,11 @@ public class TransformerService extends Service {
             domSource = buildDOMSource(context.getResourceAsStream(resourcePath));            
             kernel2_2ToOaidcTemplates = TransformerFactory.newInstance().newTemplates(domSource);
             
+            logger.warn("Loading Kernel2.3 transform");
+            resourcePath = applicationContext.getProperty(Constants.Property.STYLESHEET_KERNEL2_3_TO_OAIDC);
+            domSource = buildDOMSource(context.getResourceAsStream(resourcePath));            
+            kernel2_3ToOaidcTemplates = TransformerFactory.newInstance().newTemplates(domSource);            
+            
             logger.warn("TransformerService loaded.");
 
         } 
@@ -97,7 +103,7 @@ public class TransformerService extends Service {
      * @return The resulting metadata as a String
      * @throws ServiceException
      */
-    public String doTransform_Kernel2_0ToOaidc(String metadata) throws ServiceException{
+    public String doTransform_Kernel2_0ToOaidc(byte[] metadata) throws ServiceException{
         return doTransform_kernelToOaidc(metadata,this.kernel2_0ToOaidcTemplates,Constants.SchemaVersion.VERSION_2_0);
     }
     
@@ -107,18 +113,28 @@ public class TransformerService extends Service {
      * @return The resulting metadata as a String
      * @throws ServiceException
      */
-    public String doTransform_Kernel2_1ToOaidc(String metadata) throws ServiceException{
+    public String doTransform_Kernel2_1ToOaidc(byte[] metadata) throws ServiceException{
         return doTransform_kernelToOaidc(metadata,this.kernel2_1ToOaidcTemplates,Constants.SchemaVersion.VERSION_2_1);
-    }    
+    }
     
     /**
-     * Transform DataCite Metadata Scheme 2.1 to OAI Dublin Core.
+     * Transform DataCite Metadata Scheme 2.2 to OAI Dublin Core.
      * @param metadata The metadata to transform
      * @return The resulting metadata as a String
      * @throws ServiceException
      */
-    public String doTransform_Kernel2_2ToOaidc(String metadata) throws ServiceException{
+    public String doTransform_Kernel2_2ToOaidc(byte[] metadata) throws ServiceException{
         return doTransform_kernelToOaidc(metadata,this.kernel2_2ToOaidcTemplates,Constants.SchemaVersion.VERSION_2_2);
+    }
+        
+    /**
+     * Transform DataCite Metadata Scheme 2.3 to OAI Dublin Core.
+     * @param metadata The metadata to transform
+     * @return The resulting metadata as a String
+     * @throws ServiceException
+     */
+    public String doTransform_Kernel2_3ToOaidc(byte[] metadata) throws ServiceException{
+        return doTransform_kernelToOaidc(metadata,this.kernel2_3ToOaidcTemplates,Constants.SchemaVersion.VERSION_2_3);
     }
     
     /**
@@ -129,18 +145,18 @@ public class TransformerService extends Service {
      * @return
      * @throws ServiceException
      */
-    private String doTransform_kernelToOaidc(String metadata,Templates template,String version) throws ServiceException{
+    private String doTransform_kernelToOaidc(byte[] metadata,Templates template,String version) throws ServiceException{
 
-        // Configure input
-        StringReader stringReader = new StringReader(metadata);
-        StreamSource streamSource = new StreamSource(stringReader);
-
-        // Configure output
-        StringWriter stringWriter = new StringWriter();
-        StreamResult streamResult = new StreamResult(stringWriter);
-
-        // Do transform
         try {
+        	// Configure input
+        	InputStreamReader reader = new InputStreamReader(new ByteArrayInputStream(metadata),"UTF-8");
+        	StreamSource streamSource = new StreamSource(reader);
+        
+        	// Configure output
+        	StringWriter stringWriter = new StringWriter();
+        	StreamResult streamResult = new StreamResult(stringWriter);
+
+        	// Do transform
             Transformer transformer = template.newTransformer();
             transformer.transform(streamSource, streamResult);
 
