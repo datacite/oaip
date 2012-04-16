@@ -57,8 +57,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
     xmlns:oai="http://www.openarchives.org/OAI/2.0/"
 >
 
-<xsl:output method="html"/>
-
+<xsl:output method="html"
+doctype-public="-//W3C//DTD HTML 4.01//EN"
+doctype-system="http://www.w3.org/TR/html4/strict.dtd"
+/>
 
 
 <xsl:template name="style">
@@ -164,7 +166,7 @@ p.intro {
 <html>
   <head>
     <title>OAI 2.0 Request Results</title>
-    <style><xsl:call-template name="style"/></style>
+    <style type="text/css"><xsl:call-template name="style"/></style>
   </head>
   <body>
 
