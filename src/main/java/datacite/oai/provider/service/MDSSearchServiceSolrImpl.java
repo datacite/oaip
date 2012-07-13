@@ -44,7 +44,7 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
 
     private CommonsHttpSolrServer solrServer;
 
-    ThreadSafeSimpleDateFormat dateFormat = new ThreadSafeSimpleDateFormat(Constants.DateTime.DATETIME_FORMAT_SOLR);
+    static ThreadSafeSimpleDateFormat dateFormat = new ThreadSafeSimpleDateFormat(Constants.DateTime.DATETIME_FORMAT_SOLR);
 
     public MDSSearchServiceSolrImpl(ServletContext servletContext) throws ServiceException {
         super(servletContext);
@@ -115,7 +115,7 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
         }
     }
     
-    SolrQuery constructSolrQuery(Date updateDateFrom, Date updateDateTo, String setspec, int offset, int length) {
+    static SolrQuery constructSolrQuery(Date updateDateFrom, Date updateDateTo, String setspec, int offset, int length) {
         SolrQuery query = new SolrQuery();
         query.setQuery("*:*");
         query.setRows(length);
