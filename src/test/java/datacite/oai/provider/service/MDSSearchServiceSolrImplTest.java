@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 import java.util.Date;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.common.util.DateUtil;
@@ -51,7 +52,14 @@ public class MDSSearchServiceSolrImplTest {
         testSet("foo" + Constants.Set.REF_QUALITY_SUFFIX, "allocator_symbol:FOO", "refQuality:true");
         testSet("foo.DC", "datacentre_symbol:FOO.DC");
         testSet("foo.DC" + Constants.Set.REF_QUALITY_SUFFIX, "datacentre_symbol:FOO.DC", "refQuality:true");
+        
+        testSet("");
+        testSet("   ");
+        testSet("  foo", "allocator_symbol:FOO");
+        testSet("foo  ", "allocator_symbol:FOO");
+
     }
+    
     
     private SolrQuery testSet(String set, String... filtersExpected) {
         SolrQuery query = MDSSearchServiceSolrImpl.constructSolrQuery(from, to, set, 0, 50);
@@ -66,4 +74,16 @@ public class MDSSearchServiceSolrImplTest {
         assertArrayEquals(filtersExpected, filtersActual);
         return query;
     }
+    
+    @Test
+    public void testQuerySetBase64() {
+        testSet(Constants.Set.BASE64_PART_DELIMITER);
+        testSet(Constants.Set.BASE64_PART_DELIMITER + enc("fq=title:laser&q=10.5072"), "title:laser", "10.5072");
+        testSet("FOO" + Constants.Set.BASE64_PART_DELIMITER + enc("fq=title:laser&q=10.5072"), "allocator_symbol:FOO", "title:laser", "10.5072");
+    }
+
+    private String enc(String str) {
+        return Base64.encodeBase64URLSafeString(str.getBytes());
+    }
+    
 }

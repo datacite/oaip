@@ -12,7 +12,9 @@ package datacite.oai.provider.service;
 *******************************************************************************/
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.SortedSet;
@@ -20,6 +22,10 @@ import java.util.TreeSet;
 
 import javax.servlet.ServletContext;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.StringUtils;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrQuery.ORDER;
@@ -123,6 +129,23 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
         query.setSortField("uploaded", ORDER.asc);
         query.addFilterQuery("has_metadata:true");
 
+        setspec = StringUtils.trimToEmpty(setspec);
+        if (setspec.contains(Constants.Set.BASE64_PART_DELIMITER)) {
+            String split[] = setspec.split(Constants.Set.BASE64_PART_DELIMITER, 2);
+            setspec = split[0];
+            String base64 = split[1];
+            String solrfilter = new String(Base64.decodeBase64(base64));
+            logger.info("decoded base64 setspec: " + solrfilter);
+            List<NameValuePair> params = URLEncodedUtils.parse(solrfilter, Charset.defaultCharset());
+            for (NameValuePair param : params) {
+                String name = param.getName();
+                String value = param.getValue();
+                if (name.equals("q") || name.equals("fq"))
+                    query.addFilterQuery(value);
+            }
+        }
+        
+        
         if (setspec != null && setspec.trim().length() > 0) {
             setspec = setspec.trim().toUpperCase();
 
