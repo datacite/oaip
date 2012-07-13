@@ -36,6 +36,7 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.response.SolrPingResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import org.apache.solr.common.params.CommonParams;
 
 import datacite.oai.provider.ApplicationContext;
 import datacite.oai.provider.Constants;
@@ -168,6 +169,8 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
 
         query.addFilterQuery("uploaded:[" + from + " TO " + to + "]");
         
+        query.setParam(CommonParams.QT, "/api");
+
         return query;
     }
 
