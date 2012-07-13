@@ -140,7 +140,9 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
             for (NameValuePair param : params) {
                 String name = param.getName();
                 String value = param.getValue();
-                if (name.equals("q") || name.equals("fq"))
+                if (name.equals("q")) 
+                    query.setQuery(value);
+                else if (name.equals("fq"))
                     query.addFilterQuery(value);
             }
         }

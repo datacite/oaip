@@ -78,8 +78,11 @@ public class MDSSearchServiceSolrImplTest {
     @Test
     public void testQuerySetBase64() {
         testSet(Constants.Set.BASE64_PART_DELIMITER);
-        testSet(Constants.Set.BASE64_PART_DELIMITER + enc("fq=title:laser&q=10.5072"), "title:laser", "10.5072");
-        testSet("FOO" + Constants.Set.BASE64_PART_DELIMITER + enc("fq=title:laser&q=10.5072"), "allocator_symbol:FOO", "title:laser", "10.5072");
+        
+        SolrQuery query = testSet(Constants.Set.BASE64_PART_DELIMITER + enc("fq=title:laser&q=10.5072"), "title:laser");
+        assertEquals("10.5072", query.getQuery());
+        
+        testSet("FOO" + Constants.Set.BASE64_PART_DELIMITER + enc("fq=title:laser"), "allocator_symbol:FOO", "title:laser");
     }
 
     private String enc(String str) {
