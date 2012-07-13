@@ -98,6 +98,24 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
     @Override
     public Pair<List<DatasetRecordBean>, Integer> getDatasets(Date updateDateFrom, Date updateDateTo, String setspec,
             int offset, int length) throws ServiceException {
+        
+        SolrQuery query = constructSolrQuery(updateDateFrom, updateDateTo, setspec, offset, length);
+
+        logger.info(query);
+
+        try {
+            QueryResponse response = solrServer.query(query);
+            SolrDocumentList results = response.getResults();
+
+            List<DatasetRecordBean> records = convertToRecords(results);
+            int count = (int) results.getNumFound();
+            return new Pair<List<DatasetRecordBean>, Integer>(records, count);
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+    }
+    
+    SolrQuery constructSolrQuery(Date updateDateFrom, Date updateDateTo, String setspec, int offset, int length) {
         SolrQuery query = new SolrQuery();
         query.setQuery("*:*");
         query.setRows(length);
@@ -124,19 +142,8 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
         String to = dateFormat.format(updateDateTo);
 
         query.addFilterQuery("uploaded:[" + from + " TO " + to + "]");
-
-        logger.info(query);
-
-        try {
-            QueryResponse response = solrServer.query(query);
-            SolrDocumentList results = response.getResults();
-
-            List<DatasetRecordBean> records = convertToRecords(results);
-            int count = (int) results.getNumFound();
-            return new Pair<List<DatasetRecordBean>, Integer>(records, count);
-        } catch (Exception e) {
-            throw new ServiceException(e);
-        }
+        
+        return query;
     }
 
     @Override
