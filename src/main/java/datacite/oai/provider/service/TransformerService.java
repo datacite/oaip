@@ -14,7 +14,6 @@ package datacite.oai.provider.service;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.StringWriter;
 
 import javax.servlet.ServletContext;
@@ -149,8 +148,7 @@ public class TransformerService extends Service {
 
         try {
         	// Configure input
-        	InputStreamReader reader = new InputStreamReader(new ByteArrayInputStream(metadata),"UTF-8");
-        	StreamSource streamSource = new StreamSource(reader);
+        	StreamSource streamSource = new StreamSource(new ByteArrayInputStream(metadata));
         
         	// Configure output
         	StringWriter stringWriter = new StringWriter();
