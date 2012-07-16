@@ -122,7 +122,7 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
         }
     }
     
-    static SolrQuery constructSolrQuery(Date updateDateFrom, Date updateDateTo, String setspec, int offset, int length) {
+    static SolrQuery constructSolrQuery(Date updateDateFrom, Date updateDateTo, String setspec, int offset, int length) throws ServiceException {
         SolrQuery query = new SolrQuery();
         query.setQuery("*:*");
         query.setRows(length);
@@ -145,6 +145,8 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
                     query.setQuery(value);
                 else if (name.equals("fq"))
                     query.addFilterQuery(value);
+                else
+                    throw new ServiceException("parameter '" + name + "' is not supported");
             }
         }
         

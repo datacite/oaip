@@ -46,7 +46,7 @@ public class MDSSearchServiceSolrImplTest {
     }
     
     @Test
-    public void testQuerySet() {
+    public void testQuerySet() throws Exception {
         testSet(Constants.Set.REF_QUALITY, "refQuality:true");
         testSet("foo", "allocator_symbol:FOO");
         testSet("foo" + Constants.Set.REF_QUALITY_SUFFIX, "allocator_symbol:FOO", "refQuality:true");
@@ -61,7 +61,7 @@ public class MDSSearchServiceSolrImplTest {
     }
     
     
-    private SolrQuery testSet(String set, String... filtersExpected) {
+    private SolrQuery testSet(String set, String... filtersExpected) throws Exception {
         SolrQuery query = MDSSearchServiceSolrImpl.constructSolrQuery(from, to, set, 0, 50);
         String[] filtersActual = query.getFilterQueries();
         
@@ -76,7 +76,7 @@ public class MDSSearchServiceSolrImplTest {
     }
     
     @Test
-    public void testQuerySetBase64() {
+    public void testQuerySetBase64() throws Exception {
         testSet(Constants.Set.BASE64_PART_DELIMITER);
         
         SolrQuery query = testSet(Constants.Set.BASE64_PART_DELIMITER + enc("fq=title:laser&q=10.5072"), "title:laser");
@@ -84,7 +84,12 @@ public class MDSSearchServiceSolrImplTest {
         
         testSet("FOO" + Constants.Set.BASE64_PART_DELIMITER + enc("fq=title:laser"), "allocator_symbol:FOO", "title:laser");
     }
-
+    
+    @Test(expected = ServiceException.class)
+    public void testQuerySetBase64UnsupportedParam() throws Exception {
+        testSet(Constants.Set.BASE64_PART_DELIMITER + enc("facet=on"));
+    }
+    
     private String enc(String str) {
         return Base64.encodeBase64URLSafeString(str.getBytes());
     }
