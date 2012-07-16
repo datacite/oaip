@@ -137,6 +137,8 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
             String base64 = split[1];
             String solrfilter = new String(Base64.decodeBase64(base64));
             logger.info("decoded base64 setspec: " + solrfilter);
+            solrfilter = solrfilter.replaceAll("^[?&]+", "");
+            
             List<NameValuePair> params = URLEncodedUtils.parse(solrfilter, Charset.defaultCharset());
             for (NameValuePair param : params) {
                 String name = param.getName();

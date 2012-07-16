@@ -77,12 +77,18 @@ public class MDSSearchServiceSolrImplTest {
     
     @Test
     public void testQuerySetBase64() throws Exception {
-        testSet(Constants.Set.BASE64_PART_DELIMITER);
+        String sep = Constants.Set.BASE64_PART_DELIMITER; 
         
-        SolrQuery query = testSet(Constants.Set.BASE64_PART_DELIMITER + enc("fq=title:laser&q=10.5072"), "title:laser");
+        testSet(sep);
+        testSet(sep + enc("fq=foo:bar"), "foo:bar");
+        testSet(sep + enc("?fq=foo:bar"), "foo:bar");
+        testSet(sep + enc("&fq=foo:bar"), "foo:bar");
+        testSet(sep + enc("?&fq=foo:bar"), "foo:bar");
+        
+        SolrQuery query = testSet(sep + enc("fq=title:laser&q=10.5072"), "title:laser");
         assertEquals("10.5072", query.getQuery());
         
-        testSet("FOO" + Constants.Set.BASE64_PART_DELIMITER + enc("fq=title:laser"), "allocator_symbol:FOO", "title:laser");
+        testSet("FOO" + sep + enc("fq=title:laser"), "allocator_symbol:FOO", "title:laser");
     }
     
     @Test(expected = ServiceException.class)
