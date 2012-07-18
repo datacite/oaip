@@ -22,7 +22,7 @@ public final class Constants {
     public static class Set {
         public static final String REF_QUALITY = "REFQUALITY";
         public static final String REF_QUALITY_SUFFIX = "."+REF_QUALITY;
-        public static final String BASE64_PART_DELIMITER = "!";
+        public static final String BASE64_PART_DELIMITER = "~";
     }
     
     /**

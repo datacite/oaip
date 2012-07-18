@@ -48,15 +48,15 @@
 <h2>Set Structure</h2>
 <p>Each DataCite allocation agency and client datacentre is represented by a set in the repository. Therefore it is easy to harvest all available metadata for a particular datacentre or allocator. In addition each set also has a reference quality equivalent (.REFQUALITY). The reference quality set limits the metadata harvested to only those records that are deemed to be of reference quality.</p>
 <h3>Arbitrary Queries</h3>
-<p>You can use custom solr search queries in your setspec. Therefore the solr query string must be base64url encoded, see <a href="https://tools.ietf.org/html/rfc4648#section-5">RFC 4648</a>, and appended to any normal setspec or the empty string separated by a exclamation mark (<code>!</code>). There shall be <em>no</em> tailing padding character (<code>=</code>).</p>
+<p>You can use custom solr search queries in your setspec. Therefore the solr query string must be base64url encoded, see <a href="https://tools.ietf.org/html/rfc4648#section-5">RFC 4648</a>, and appended to any normal setspec or the empty string separated by a tilde (<code>~</code>). There shall be <em>no</em> tailing padding character (<code>=</code>).</p>
 <p>Example:</p>
 <table>
 <tr><td>solr query string</td><td><a href="http://search.datacite.org/ui?q=laser&amp;fq=resourceTypeGeneral:dataset"><code>q=laser&amp;fq=resourceTypeGeneral:dataset</code></a></td></tr>
 <tr><td>base64url</td><td><code>cT1sYXNlciZmcT1yZXNvdXJjZVR5cGVHZW5lcmFsOmRhdGFzZXQK</code></td></tr>
 <tr><td>set name</td><td>
-<a href="oai?verb=ListRecords&amp;metadataPrefix=oai_datacite&set=!cT1sYXNlciZmcT1yZXNvdXJjZVR5cGVHZW5lcmFsOmRhdGFzZXQK"><code>!cT1sYXNlciZmcT1yZXNvdXJjZVR5cGVHZW5lcmFsOmRhdGFzZXQK</code></a><br/>
-<a href="oai?verb=ListRecords&amp;metadataPrefix=oai_datacite&set=TIB!cT1sYXNlciZmcT1yZXNvdXJjZVR5cGVHZW5lcmFsOmRhdGFzZXQK"><code>TIB!cT1sYXNlciZmcT1yZXNvdXJjZVR5cGVHZW5lcmFsOmRhdGFzZXQK</code><br/>
-<a href="oai?verb=ListRecords&amp;metadataPrefix=oai_datacite&set=TIB.GFZ!cT1sYXNlciZmcT1yZXNvdXJjZVR5cGVHZW5lcmFsOmRhdGFzZXQK"><code>TIB.GFZ!cT1sYXNlciZmcT1yZXNvdXJjZVR5cGVHZW5lcmFsOmRhdGFzZXQK</code><br/>
+<a href="oai?verb=ListRecords&amp;metadataPrefix=oai_datacite&set=~cT1sYXNlciZmcT1yZXNvdXJjZVR5cGVHZW5lcmFsOmRhdGFzZXQK"><code>~cT1sYXNlciZmcT1yZXNvdXJjZVR5cGVHZW5lcmFsOmRhdGFzZXQK</code></a><br/>
+<a href="oai?verb=ListRecords&amp;metadataPrefix=oai_datacite&set=TIB~cT1sYXNlciZmcT1yZXNvdXJjZVR5cGVHZW5lcmFsOmRhdGFzZXQK"><code>TIB~cT1sYXNlciZmcT1yZXNvdXJjZVR5cGVHZW5lcmFsOmRhdGFzZXQK</code><br/>
+<a href="oai?verb=ListRecords&amp;metadataPrefix=oai_datacite&set=TIB.GFZ~cT1sYXNlciZmcT1yZXNvdXJjZVR5cGVHZW5lcmFsOmRhdGFzZXQK"><code>TIB.GFZ~cT1sYXNlciZmcT1yZXNvdXJjZVR5cGVHZW5lcmFsOmRhdGFzZXQK</code><br/>
 </a></td></tr>
 </table>
 <p>Currently the solr query params <code>q</code> and <code>fq</code> are supported. For list of field names see <a href="http://search.datacite.org/help.html">DataCite Search Help</a>. At the bottom of the search results on <a href="http://search.datacite.org">DataCite Search</a> there is also a link to convert any custom query into a OAI-PMH request.</p>
