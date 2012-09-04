@@ -86,7 +86,7 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
         String id = (String) doc.getFieldValue("dataset_id");
         String symbol = (String) doc.getFieldValue("datacentre_symbol");
         byte[] xml = (byte[]) doc.getFieldValue("xml");
-        Date updateDate = (Date) doc.getFieldValue("uploaded");
+        Date updateDate = (Date) doc.getFieldValue("updated");
         Boolean refQuality = (Boolean) doc.getFieldValue("refQuality");
         Boolean isActive = (Boolean) doc.getFieldValue("has_metadata");
         String schemaVersion = (String) doc.getFieldValue("schema_version");
@@ -127,7 +127,7 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
         query.setQuery("*:*");
         query.setRows(length);
         query.setStart(offset);
-        query.setSortField("uploaded", ORDER.asc);
+        query.setSortField("updated", ORDER.asc);
         query.addFilterQuery("has_metadata:true");
 
         setspec = StringUtils.trimToEmpty(setspec);
@@ -171,7 +171,7 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
         String from = dateFormat.format(updateDateFrom);
         String to = dateFormat.format(updateDateTo);
 
-        query.addFilterQuery("uploaded:[" + from + " TO " + to + "]");
+        query.addFilterQuery("updated:[" + from + " TO " + to + "]");
         
         query.setParam(CommonParams.QT, "/api");
 
