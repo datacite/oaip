@@ -173,7 +173,7 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
 
         query.addFilterQuery("updated:[" + from + " TO " + to + "]");
         
-        query.setParam(CommonParams.QT, "/api");
+        query.setParam(CommonParams.QT, "/public/api");
 
         return query;
     }
