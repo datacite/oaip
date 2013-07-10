@@ -37,7 +37,7 @@ public class MDSSearchServiceSolrImplTest {
 
         SolrQuery query = MDSSearchServiceSolrImpl.constructSolrQuery(from, to, set, offset, length);
         String[] filtersActual = query.getFilterQueries();
-        String[] filtersExpected = { "has_metadata:true", "updated:[" + fromStr + " TO " + toStr + "]" };
+        String[] filtersExpected = { "has_metadata:true", "is_active:true", "updated:[" + fromStr + " TO " + toStr + "]" };
 
         assertEquals("*:*", query.getQuery());
         assertEquals(length, query.getRows());
@@ -65,7 +65,7 @@ public class MDSSearchServiceSolrImplTest {
         SolrQuery query = MDSSearchServiceSolrImpl.constructSolrQuery(from, to, set, 0, 50);
         String[] filtersActual = query.getFilterQueries();
         
-        String[] filterAdditional = { "has_metadata:true", "updated:[" + fromStr + " TO " + toStr + "]" };
+        String[] filterAdditional = { "has_metadata:true", "is_active:true", "updated:[" + fromStr + " TO " + toStr + "]" };
         filtersExpected = (String[]) ArrayUtils.addAll(filtersExpected, filterAdditional);
 
         Arrays.sort(filtersActual);
