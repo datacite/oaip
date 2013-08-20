@@ -18,7 +18,6 @@ import org.oclc.oai.server.crosswalk.Crosswalk;
 import org.oclc.oai.server.verb.CannotDisseminateFormatException;
 import org.oclc.oai.server.verb.OAIInternalServerError;
 
-import datacite.oai.provider.Constants;
 import datacite.oai.provider.catalog.datacite.DatasetRecordBean;
 import datacite.oai.provider.service.ServiceCollection;
 import datacite.oai.provider.service.TransformerService;
@@ -58,19 +57,7 @@ public class Datacite2Oai_dc extends Crosswalk{
 
             ServiceCollection services = ServiceCollection.getInstance();
             TransformerService transformerService = services.getTransformerService();
-            
-            if (dataset.getSchemaVersion().equalsIgnoreCase(Constants.SchemaVersion.VERSION_2_2)){
-                result = transformerService.doTransform_Kernel2_2ToOaidc(dataset.getMetadata());
-            }
-            else if (dataset.getSchemaVersion().equalsIgnoreCase(Constants.SchemaVersion.VERSION_2_3)){
-                result = transformerService.doTransform_Kernel2_3ToOaidc(dataset.getMetadata());
-            }            
-            else if (dataset.getSchemaVersion().equalsIgnoreCase(Constants.SchemaVersion.VERSION_2_1)){
-                result = transformerService.doTransform_Kernel2_1ToOaidc(dataset.getMetadata());
-            }
-            else{
-                result = transformerService.doTransform_Kernel2_0ToOaidc(dataset.getMetadata());
-            }           
+            result = transformerService.doTransformKernelToOaidc(dataset.getSchemaVersion(), dataset.getMetadata());           
         } 
         catch(Exception e) {
             logger.error("Error transforming dataset", e);
