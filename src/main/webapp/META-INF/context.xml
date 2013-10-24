@@ -2,6 +2,7 @@
     <Parameter name="environmentLabel" value="PROD environment"/>
 
 	<Parameter name="mdssetcache.expiry.seconds" value="600" />
+	<Parameter name="stylesheet.identity" value="/xsl/identitytransform.xsl" />
 	<Parameter name="stylesheet.kernel2.0_to_oaidc" value="/xsl/kernel2.0_to_oaidc.xsl" />
 	<Parameter name="stylesheet.kernel2.1_to_oaidc" value="/xsl/kernel2.1_to_oaidc.xsl" />
 	<Parameter name="stylesheet.kernel2.2_to_oaidc" value="/xsl/kernel2.2_to_oaidc.xsl" />

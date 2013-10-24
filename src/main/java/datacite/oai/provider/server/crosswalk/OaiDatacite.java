@@ -20,6 +20,9 @@ import org.oclc.oai.server.verb.CannotDisseminateFormatException;
 import org.oclc.oai.server.verb.OAIInternalServerError;
 
 import datacite.oai.provider.catalog.datacite.DatasetRecordBean;
+import datacite.oai.provider.service.ServiceCollection;
+import datacite.oai.provider.service.ServiceException;
+import datacite.oai.provider.service.TransformerService;
 import datacite.oai.provider.util.XMLUtil;
 
 /**
@@ -82,11 +85,15 @@ public class OaiDatacite extends Crosswalk {
      * @param rec The record
      * @return XML metadata in oai_datacite format.
      */
-    private String buildDocument(DatasetRecordBean rec) throws UnsupportedEncodingException{        
+    private String buildDocument(DatasetRecordBean rec) throws UnsupportedEncodingException, ServiceException{        
         StringBuilder doc = new StringBuilder();
         String[] attribs = new String[]{"xmlns=\""+schemaNamespace+"\"","xsi:schemaLocation=\""+schemaNamespace+" "+schemaLocation+"\""};
         
-        String metadata = XMLUtil.toXMLString(rec.getMetadata(),"UTF-8");
+    	ServiceCollection services = ServiceCollection.getInstance();
+    	TransformerService service = services.getTransformerService();
+        
+        String metadata = service.doTransformIdentity(rec.getMetadata());
+        metadata = XMLUtil.cleanXML(metadata);
         
         doc.append(openTagWithAttrib(rootElement,attribs));        
             doc.append(openTag(rqElement));

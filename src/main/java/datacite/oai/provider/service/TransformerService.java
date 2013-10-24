@@ -43,6 +43,7 @@ public class TransformerService extends Service {
 
     private static Logger logger = Logger.getLogger(TransformerService.class);
     private HashMap<String,Templates> templatesMap;
+    private Templates identityTransform;
     
     /**
      * Public constructor
@@ -56,17 +57,20 @@ public class TransformerService extends Service {
         try {
             logger.warn("TransformerService loading...");
             ApplicationContext applicationContext = ApplicationContext.getInstance();
-
             templatesMap = new HashMap<String,Templates>();
             
+            logger.warn("Loading Identity transform");
+            String resourcePath = applicationContext.getProperty(Constants.Property.STYLESHEET_IDENTITY);            
+            DOMSource domSource = buildDOMSource(context.getResourceAsStream(resourcePath));
+            identityTransform = TransformerFactory.newInstance().newTemplates(domSource);
+            
             logger.warn("Loading Kernel2.0 transform");
-            String resourcePath = applicationContext.getProperty(Constants.Property.STYLESHEET_KERNEL2_0_TO_OAIDC);            
-            DOMSource domSource = buildDOMSource(context.getResourceAsStream(resourcePath));            
+            resourcePath = applicationContext.getProperty(Constants.Property.STYLESHEET_KERNEL2_0_TO_OAIDC);            
+            domSource = buildDOMSource(context.getResourceAsStream(resourcePath));            
             
             Templates kernel2_0ToOaidcTemplates = TransformerFactory.newInstance().newTemplates(domSource);
             templatesMap.put(Constants.SchemaVersion.VERSION_2_0,kernel2_0ToOaidcTemplates);
             templatesMap.put(null, kernel2_0ToOaidcTemplates); //set version 2.0 as the default (null key) transform
-
             
             logger.warn("Loading Kernel2.1 transform");
             resourcePath = applicationContext.getProperty(Constants.Property.STYLESHEET_KERNEL2_1_TO_OAIDC);
@@ -125,40 +129,55 @@ public class TransformerService extends Service {
      * @throws ServiceException
      */
     public String doTransformKernelToOaidc(String schemaVersion, byte[] metadata) throws ServiceException {
-    	Templates transform = getTransform(schemaVersion);
-    	return doTransform_kernelToOaidc(metadata,transform,schemaVersion);
+    	try{
+    		Templates transform = getTransform(schemaVersion);    	    	    	
+    		return doTransform(metadata,transform);
+    	}
+    	catch(Exception e){
+    		logger.error( "Unable to transform Kernel "+schemaVersion+" to OAIDC: " + metadata, e );
+    		throw new ServiceException("Unable to transform Kernel "+schemaVersion+" to OAIDC", e );
+    	}
+    }
+    
+    
+    /**
+     * Perform and Identity transform on input metadata. The transform is configured to output UTF-8.
+     * @param metadata The metadata to transform
+     * @return The resulting metadata as a String
+     * @throws ServiceException
+     */
+    public String doTransformIdentity(byte[] metadata) throws ServiceException {
+    	try{
+    		return doTransform(metadata,identityTransform);
+    	}
+    	catch(Exception e){
+    		logger.error( "Unable to perform Identity transform: " + metadata, e );
+    		throw new ServiceException("Unable to perform Identity transform", e );
+    	}
     }
     
     /**
      * Transform DataCite Metadata Scheme to OAI Dublin Core.
      * @param metadata the metadata to transform
      * @param template the template to use
-     * @param version the version number
      * @return
-     * @throws ServiceException
+     * @throws Exception
      */
-    private String doTransform_kernelToOaidc(byte[] metadata,Templates template,String version) throws ServiceException{
+    private String doTransform(byte[] metadata,Templates template) throws Exception{
+    	// Configure input
+    	StreamSource streamSource = new StreamSource(new ByteArrayInputStream(metadata));
+    
+    	// Configure output
+    	StringWriter stringWriter = new StringWriter();
+    	StreamResult streamResult = new StreamResult(stringWriter);
 
-        try {
-        	// Configure input
-        	StreamSource streamSource = new StreamSource(new ByteArrayInputStream(metadata));
-        
-        	// Configure output
-        	StringWriter stringWriter = new StringWriter();
-        	StreamResult streamResult = new StreamResult(stringWriter);
+    	// Do transform
+        Transformer transformer = template.newTransformer();
+        transformer.transform(streamSource, streamResult);
 
-        	// Do transform
-            Transformer transformer = template.newTransformer();
-            transformer.transform(streamSource, streamResult);
-
-            // Return result
-            stringWriter.close();
-            return stringWriter.toString();
-
-        } catch (Exception e) {
-            logger.error( "Unable to transform Kernel "+version+" to OAIDC: " + metadata, e );
-            throw new ServiceException("Unable to transform Kernel "+version+" to OAIDC", e );
-        }
+        // Return result
+        stringWriter.close();
+        return stringWriter.toString();
     }    
     
     /**
@@ -195,5 +214,6 @@ public class TransformerService extends Service {
 
         return new DOMSource(document);
         
-    }    
+    }
+    
 }

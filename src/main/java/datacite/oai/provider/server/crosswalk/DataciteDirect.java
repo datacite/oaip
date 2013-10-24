@@ -18,6 +18,8 @@ import org.oclc.oai.server.verb.CannotDisseminateFormatException;
 import org.oclc.oai.server.verb.OAIInternalServerError;
 
 import datacite.oai.provider.catalog.datacite.DatasetRecordBean;
+import datacite.oai.provider.service.ServiceCollection;
+import datacite.oai.provider.service.TransformerService;
 import datacite.oai.provider.util.XMLUtil;
 
 public class DataciteDirect extends Crosswalk {
@@ -42,7 +44,12 @@ public class DataciteDirect extends Crosswalk {
     public String createMetadata(Object nativeItem) throws CannotDisseminateFormatException{
         try{
         	DatasetRecordBean dataset = (DatasetRecordBean)nativeItem;
-        	String result = XMLUtil.toXMLString(dataset.getMetadata(),"UTF-8");
+        	
+        	ServiceCollection services = ServiceCollection.getInstance();
+        	TransformerService service = services.getTransformerService();
+        	
+        	String result = service.doTransformIdentity(dataset.getMetadata());
+        	result = XMLUtil.cleanXML(result);
 
         	return result;
         }
