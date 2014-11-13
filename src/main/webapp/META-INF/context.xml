@@ -7,7 +7,7 @@
 	<Parameter name="stylesheet.kernel2.1_to_oaidc" value="/xsl/kernel2.1_to_oaidc.xsl" />
 	<Parameter name="stylesheet.kernel2.2_to_oaidc" value="/xsl/kernel2.2_to_oaidc.xsl" />
 	<Parameter name="stylesheet.kernel2.3_to_oaidc" value="/xsl/kernel2.3_to_oaidc.xsl" />
-	<Parameter name="stylesheet.kernel3.0_to_oaidc" value="/xsl/kernel3.0_to_oaidc.xsl" />
+	<Parameter name="stylesheet.kernel3_to_oaidc" value="/xsl/kernel3_to_oaidc.xsl" />
 
 	<!-- file containing DB connection strings -->
 	<Parameter name="db.properties" value="/WEB-INF/classes/database.properties" />
