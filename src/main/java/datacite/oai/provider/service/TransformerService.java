@@ -60,13 +60,13 @@ public class TransformerService extends Service {
             templatesMap = new HashMap<String,Templates>();
             
             logger.warn("Loading Identity transform");
-            String resourcePath = applicationContext.getProperty(Constants.Property.STYLESHEET_IDENTITY);            
+            String resourcePath = applicationContext.getProperty(Constants.Property.STYLESHEET_IDENTITY);
             DOMSource domSource = buildDOMSource(context.getResourceAsStream(resourcePath));
             identityTransform = TransformerFactory.newInstance().newTemplates(domSource);
             
             logger.warn("Loading Kernel 2.0 transform");
-            resourcePath = applicationContext.getProperty(Constants.Property.STYLESHEET_KERNEL2_0_TO_OAIDC);            
-            domSource = buildDOMSource(context.getResourceAsStream(resourcePath));            
+            resourcePath = applicationContext.getProperty(Constants.Property.STYLESHEET_KERNEL2_0_TO_OAIDC);
+            domSource = buildDOMSource(context.getResourceAsStream(resourcePath));
             
             Templates kernel2_0ToOaidcTemplates = TransformerFactory.newInstance().newTemplates(domSource);
             templatesMap.put(Constants.SchemaVersion.VERSION_2_0,kernel2_0ToOaidcTemplates);
@@ -74,36 +74,42 @@ public class TransformerService extends Service {
             
             logger.warn("Loading Kernel 2.1 transform");
             resourcePath = applicationContext.getProperty(Constants.Property.STYLESHEET_KERNEL2_1_TO_OAIDC);
-            domSource = buildDOMSource(context.getResourceAsStream(resourcePath));            
+            domSource = buildDOMSource(context.getResourceAsStream(resourcePath));
             
             Templates  kernel2_1ToOaidcTemplates = TransformerFactory.newInstance().newTemplates(domSource);
             templatesMap.put(Constants.SchemaVersion.VERSION_2_1, kernel2_1ToOaidcTemplates);
-                        
+            
             logger.warn("Loading Kernel 2.2 transform");
             resourcePath = applicationContext.getProperty(Constants.Property.STYLESHEET_KERNEL2_2_TO_OAIDC);
-            domSource = buildDOMSource(context.getResourceAsStream(resourcePath));            
+            domSource = buildDOMSource(context.getResourceAsStream(resourcePath));
             
             Templates kernel2_2ToOaidcTemplates = TransformerFactory.newInstance().newTemplates(domSource);
             templatesMap.put(Constants.SchemaVersion.VERSION_2_2, kernel2_2ToOaidcTemplates);
                         
             logger.warn("Loading Kernel 2.3 transform");
             resourcePath = applicationContext.getProperty(Constants.Property.STYLESHEET_KERNEL2_3_TO_OAIDC);
-            domSource = buildDOMSource(context.getResourceAsStream(resourcePath));            
+            domSource = buildDOMSource(context.getResourceAsStream(resourcePath));
             
             Templates kernel2_3ToOaidcTemplates = TransformerFactory.newInstance().newTemplates(domSource);
             templatesMap.put(Constants.SchemaVersion.VERSION_2_3, kernel2_3ToOaidcTemplates);
                         
             logger.warn("Loading Kernel 3 transforms");
             resourcePath = applicationContext.getProperty(Constants.Property.STYLESHEET_KERNEL3_TO_OAIDC);
-            domSource = buildDOMSource(context.getResourceAsStream(resourcePath));            
+            domSource = buildDOMSource(context.getResourceAsStream(resourcePath));
             
             Templates kernel3ToOaidcTemplates = TransformerFactory.newInstance().newTemplates(domSource);
             templatesMap.put(Constants.SchemaVersion.VERSION_3_0, kernel3ToOaidcTemplates);
             templatesMap.put(Constants.SchemaVersion.VERSION_3_1, kernel3ToOaidcTemplates); //version 3.1 uses same transform as 3.0
-                        
+            
+            logger.warn("Loading Kernel 4 transform");
+            resourcePath = applicationContext.getProperty(Constants.Property.STYLESHEET_KERNEL4_TO_OAIDC);
+            domSource = buildDOMSource(context.getResourceAsStream(resourcePath));
+            
+            Templates kernel4ToOaidcTemplates = TransformerFactory.newInstance().newTemplates(domSource);
+            templatesMap.put(Constants.SchemaVersion.VERSION_4_0, kernel4ToOaidcTemplates);
             
             logger.warn("TransformerService loaded.");
-
+            
         } 
         catch(TransformerConfigurationException te){
         	throw new ServiceException(te.getMessageAndLocation(),te);
@@ -129,7 +135,7 @@ public class TransformerService extends Service {
      */
     public String doTransformKernelToOaidc(String schemaVersion, byte[] metadata) throws ServiceException {
     	try{
-    		Templates transform = getTransform(schemaVersion);    	    	    	
+    		Templates transform = getTransform(schemaVersion);
     		return doTransform(metadata,transform);
     	}
     	catch(Exception e){
@@ -193,7 +199,7 @@ public class TransformerService extends Service {
     		transform = templatesMap.get(null);
     	}
     	
-    	return transform;    	
+    	return transform;
     }
     
     /**
