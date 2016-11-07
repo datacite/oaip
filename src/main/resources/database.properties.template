@@ -1,2 +1,0 @@
-##Populate with connection properties for solr connections.
-mds.solr.url=http://search.datacite.org
