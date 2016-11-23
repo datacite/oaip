@@ -1,28 +1,5 @@
-<!-- <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd" >
-<log4j:configuration>
-
-  <appender name="SYSLOG" class="org.apache.log4j.net.SyslogAppender">
-    <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler" />
-    <param name="Facility" value="LOCAL7"/>
-    <param name="FacilityPrinting" value="false"/>
-    <param name="Header" value="true"/>
-    <param name="SyslogHost" value="localhost"/>
-    <layout class="org.apache.log4j.PatternLayout">
-      <param name="ConversionPattern" value="%p: %c{2} %x %m %n"/>
-    </layout>
-  </appender>
-
-  <root>
-    <priority value="info"></priority>
-    <appender-ref ref="SYSLOG" />
-  </root>
-
-</log4j:configuration> -->
-
-
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd" >
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration debug="true"
   xmlns:log4j='http://jakarta.apache.org/log4j/'>
 
@@ -36,13 +13,13 @@
         <level value="warn"/>
     </logger>
 
-    <logger name="org.datacite.oai">
+    <logger name="datacite.oai">
         <level value="{{ default .Env.LOG_LEVEL "info" }}"/>
     </logger>
 
     <root>
-        <level value="warn" />
-        <appender-ref ref="console" />
+        <level value="warn"/>
+        <appender-ref ref="console"/>
     </root>
 
 </log4j:configuration>

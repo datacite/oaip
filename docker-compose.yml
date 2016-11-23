@@ -8,4 +8,4 @@ services:
       - "8080:8080"
     volumes:
       - ~/.m2:/root/.m2
-      - ./docker:/home/app/docker
+      # - ./docker:/home/app/docker

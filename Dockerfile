@@ -12,7 +12,6 @@ ENV CATALINA_TMPDIR /tmp/tomcat7-tomcat7-tmp
 ENV DOCKERIZE_VERSION v0.2.0
 ENV SHELL /bin/bash
 
-
 # Use baseimage-docker's init process
 CMD ["/sbin/my_init"]
 
@@ -52,11 +51,8 @@ RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
 COPY docker/ntp.conf /etc/ntp.conf
 
 # Copy webapp folder
-WORKDIR /home/app
-RUN mkdir ssss
 COPY . /home/app/
-
-
+WORKDIR /home/app
 
 # Add Runit script for tomcat
 RUN mkdir /etc/service/tomcat && \
@@ -73,7 +69,7 @@ COPY docker/server.xml /etc/tomcat7/server.xml
 RUN mkdir -p /etc/my_init.d
 COPY docker/70_templates.sh /etc/my_init.d/70_templates.sh
 COPY docker/80_install.sh /etc/my_init.d/80_install.sh
-# RUN chown tomcat7. -R /etc/my_init.d/70_templates.sh && \
-#     chown tomcat7. -R  /etc/my_init.d/80_install.sh
+RUN chmod +x /etc/my_init.d/70_templates.sh && \
+    chmod +x  /etc/my_init.d/80_install.sh
 
 EXPOSE 8080
