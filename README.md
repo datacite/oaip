@@ -1,70 +1,36 @@
-# Overview
+# DataCite OAI-PMH Provider
 
-This is the OAI-PMH Data Provider (OAIP) application for the DataCite central infrastructure. This
-app is a servlet with the main functionality of disseminating the contents of the 
-DataCite Metadata Store using OAI-PMH.
+[![Build Status](https://travis-ci.org/datacite/oaip.svg)](https://travis-ci.org/datacite/oaip)
+
+This is the OAI-PMH Data Provider (OAIP) application for the DataCite central infrastructure. This app is a servlet with the main functionality of disseminating the contents of the DataCite Metadata Store using OAI-PMH.
 
 To learn more about DataCite please visit [our website](http://www.datacite.org)
 
 To use this service please go to [http://oai.datacite.org](http://oai.datacite.org)
 
-# Installation (for development only)
+## Installation
 
-## Tools
+Using Docker.
 
-You will need Maven 2.2.1 and JDK 6 in your system (OpenJDK from Ubuntu
-works fine).
+```
+docker run -p 8080:8080 -v ~/.m2:/root/.m2 --env-file .env.example datacite/oaip:labs
+```
 
-### Solr setup
+You can now point your browser to `http://localhost:8080` and use the application.
 
-This application is configured to connect to a Solr instance for all searching and record retrieval. 
+For a more detailed configuration, including using a lcoal Maven repository on the host, look at `docker-compose.yml` in the root folder.
 
-## Java dependencies
+## Development
 
-All dependencies are managed by Maven public repositories.
+Follow along via [Github Issues](https://github.com/datacite/content-resolver/issues).
 
-## Configure the source code 
+### Note on Patches/Pull Requests
 
-I assume you had created a fork from the master DataCite
-OAIP project. Now you need to configure the code before compiling. 
+* Fork the project
+* Write tests for your new feature or a test that reproduces a bug
+* Implement your feature or make a bug fix
+* Do not mess with Rakefile, version or history
+* Commit, push and make a pull request. Bonus points for topical branches.
 
-The git repository has a bunch of *.template files. You can find them
-with:
-
-    find . -name *.template
-
-Those files are templates for the various configuration files which
-are machine specific i.e. logging, database credentials etc.
-
-To customise them you need to make a copy omitting (.template from
-file name) e.g.:
-
-    cp src/main/resources/log4j.xml.template \
-     src/main/resources/log4j.xml
-
-Now in the created file you need to adjust values according to your
-local environment.
-
-### src/main/resources/database.properties
-
-your database(Solr) configuration.
-
-### src/main/resources/log4j.properties
-
-your usual log4j stuff.
-
-## Running locally 
-
-### First run
-
-At this stage you should be able to run the application.
-
-    mvn compile tomcat:run
-
-Point your browser at http://localhost:8080/oaip/
-
-You should see the welcome page of the DataCite OAI-PMH Data Provider.
-
-### That's all!
-
-Now you can run test OAI-PMH requests against the application.
+## License
+**Content Resolver** is released under the [Apache 2 License](https://github.com/datacite/content-resolver/blob/master/LICENSE).
