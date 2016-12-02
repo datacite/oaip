@@ -6,3 +6,4 @@
 /src/main/resources/database.properties
 /src/main/resources/log4j.properties
 /src/main/resources/log4j.xml
+.env
