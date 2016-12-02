@@ -3,7 +3,7 @@ version: '2'
 services:
   oai:
     env_file: .env
-    image: datacite/oaip:labs
+    image: datacite/oaip
     ports:
       - "8080:8080"
     volumes:
