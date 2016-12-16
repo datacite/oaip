@@ -1,4 +1,4 @@
-<Context>    
+<Context>
     <Parameter name="environmentLabel" value="PROD environment"/>
 
 	<Parameter name="mdssetcache.expiry.seconds" value="600" />
@@ -12,7 +12,7 @@
 
 	<!-- file containing DB connection strings -->
 	<Parameter name="db.properties" value="/WEB-INF/classes/database.properties" />
-		
+
 	<!-- Repository prefixes. Comma separated list of the different -->
 	<!-- repositories that will have their own controller servlet implementation. -->
 	<!-- Each prefix MUST have a set of OAI properties below -->
@@ -20,7 +20,7 @@
 
 	<!-- OAICat Repository Specific Properties (see bottom for some explanations)-->
 	<!-- There should be a copy of these for EVERY prefix above -->
-	<!-- *************************************************************************** -->	
+	<!-- *************************************************************************** -->
 
 	<!-- datacitemds = access to DataCite MDS repository -->
 	<Parameter name="datacitemds.AbstractCatalog.oaiCatalogClassName" value="datacite.oai.provider.catalog.datacite.DataciteOAICatalog" />
@@ -38,12 +38,12 @@
 	<Parameter name="datacitemds.Crosswalks.oai_datacite" value="datacite.oai.provider.server.crosswalk.OaiDatacite" />
 	<Parameter name="datacitemds.Crosswalks.oai_dc" value="datacite.oai.provider.server.crosswalk.Datacite2Oai_dc" />
 	<Parameter name="datacitemds.Crosswalks.datacite" value="datacite.oai.provider.server.crosswalk.DataciteDirect" />
-	<Parameter name="datacitemds.OAIHandler.styleSheet" value="xsl/oaitohtml.xsl" />	
+	<Parameter name="datacitemds.OAIHandler.styleSheet" value="xsl/oaitohtml.xsl" />
   <Parameter name="datacitemds.OAIHandler.baseURL" value="http://oai.datacite.org/oai" />
 
 	<!-- OAICat properties -->
 	<!-- *************************************************************************** -->
-	
+
 	<!-- This paramter is optional. Comment it out if you want the code to get the baseURL
 	from the request instead. Setting it here is only necessary if your firewall messes
 	with the request in a way that alters the baseURL from your expectations. -->
@@ -86,5 +86,5 @@
 	<!-- List the supported metadataPrefixes along with the class that performs the associated crosswalk -->
 	<!--Parameter name="Crosswalks.oai_dc" value="package.oai.server.crosswalk.Mods2Oai_dc" /-->
 
-       
+
 </Context>
