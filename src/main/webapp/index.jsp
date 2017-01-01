@@ -7,7 +7,7 @@
         <body>
             <div class="wrapper">
                 <!-- https://www.pexels.com/photo/landmark-ship-architecture-american-53562/ -->
-                <div class="landing-header" style="background-image: url('//c7.staticflickr.com/6/5782/20883427454_bb4c3f61e9_k.jpg'); background-position: center center;">
+                <div class="landing-header" style="background-image: url('//assets.datacite.org/images/oai/flavours.jpg');">
                     <div class="container">
                         <div class="motto">
                             <h1>DataCite Content Resolver</h1>
@@ -230,7 +230,7 @@
       </ul>
     </div>
     <div class="col-md-3">
-      <h4 class="share">Contact us</h4>
+      <%-- <h4 class="share">Contact us</h4>
       <a href="mailto:support@datacite.org" class="share">
         <i class="fa fa-at"></i>
       </a>
@@ -242,7 +242,7 @@
       </a>
       <a href="https://www.linkedin.com/company/datacite" class="share">
         <i class="fa fa-linkedin"></i>
-      </a>
+      </a> --%>
       <ul class="share">
         <li><a href="https://www.datacite.org/terms.html">Terms and conditions</a></li>
         <li><a href="https://www.datacite.org/privacy.html">Privacy policy</a></li>
