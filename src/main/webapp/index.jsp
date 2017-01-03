@@ -19,7 +19,7 @@
                 <div class="section section-white">
                     <div class="row row-section">
                         <div class="container-fluid">
-                            <div id="content">
+                            <div id="content" class="col-md-8 col-md-offset-2">
 
                                 <h2>What is this service?</h2>
                                 <p>This
