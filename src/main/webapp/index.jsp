@@ -3,15 +3,122 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>DataCite OAI-PMH Data Provider Beta</title>
-        <link href="//assets.datacite.org/stylesheets/datacite.css" rel="stylesheet" type="text/css"></head>
+        <link href="//assets.datacite.org/stylesheets/datacite.css" rel="stylesheet" type="text/css">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+      </head>
         <body>
             <div class="wrapper">
                 <!-- https://www.pexels.com/photo/landmark-ship-architecture-american-53562/ -->
+
+                <div class="header" id="navtop">
+                  <div class="navbar navbar-ct-transparent" role="navigation">
+                    <div class="container-fluid">
+                      <div class="navbar-header" <button="" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+
+                        <a class="navbar-brand" href="/">OAI-PMH Data Provider</a>
+                      </div>
+                      <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                          <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="support">Support <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a href="mailto:support@datacite.org">Email</a></li>
+                              <li><a href="https://github.com/datacite/segugio">Source Code</a></li>
+                            </ul>
+                          </li>
+                          <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="sites"><i class="fa fa-th"></i> <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                  <li>
+                                    <a href="https://api.datacite.org">
+                                      <i class="fa fa-cogs fa-fw"></i>
+                                      API
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="https://blog.datacite.org">
+                                      <i class="fa fa-rss fa-fw"></i>
+                                      Blog
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="http://citation.crosscite.org">
+                                      <i class="fa fa-file-text-o fa-fw"></i>
+                                      Citation Formatter
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="https://data.datacite.org">
+                                      <i class="fa fa-repeat fa-fw"></i>
+                                      Content Resolver
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="https://www.datacite.org">
+                                      <i class="fa fa-globe fa-fw"></i>
+                                      Homepage
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="https://mds.datacite.org">
+                                      <i class="fa fa-database fa-fw"></i>
+                                      MDS
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="https://oai.datacite.org">
+                                      <i class="fa fa-table fa-fw"></i>
+                                      OAI-PMH
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="https://profiles.datacite.org">
+                                      <i class="fa fa-user fa-fw"></i>
+                                      Profiles
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="https://schema.datacite.org">
+                                      <i class="fa fa-file-code-o fa-fw"></i>
+                                      Schema
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="https://search.datacite.org">
+                                      <i class="fa fa-search fa-fw"></i>
+                                      Search
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="https://stats.datacite.org">
+                                      <i class="fa fa-bar-chart fa-fw"></i>
+                                      Statistics
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="http://status.datacite.org">
+                                      <i class="fa fa-calendar-check-o fa-fw"></i>
+                                      Status
+                                    </a>
+                                  </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
                 <div class="landing-header" style="background-image: url('//assets.datacite.org/images/oai/flavours.jpg');">
                     <div class="container">
                         <div class="motto">
-                            <h1>DataCite Content Resolver</h1>
-                            <p>Content from the DataCite Metadata Store in multiple formats.</p>
+                            <h1>OAI-PMH Data Provider</h1>
+                            <p>Content from the DataCite Metadata Store via OAI-PMH.</p>
                         </div>
                     </div>
                 </div>
@@ -230,7 +337,7 @@
       </ul>
     </div>
     <div class="col-md-3">
-      <%-- <h4 class="share">Contact us</h4>
+      <h4 class="share">Contact us</h4>
       <a href="mailto:support@datacite.org" class="share">
         <i class="fa fa-at"></i>
       </a>
@@ -242,7 +349,7 @@
       </a>
       <a href="https://www.linkedin.com/company/datacite" class="share">
         <i class="fa fa-linkedin"></i>
-      </a> --%>
+      </a>
       <ul class="share">
         <li><a href="https://www.datacite.org/terms.html">Terms and conditions</a></li>
         <li><a href="https://www.datacite.org/privacy.html">Privacy policy</a></li>
