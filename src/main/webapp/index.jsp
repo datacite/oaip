@@ -3,8 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>DataCite OAI-PMH Data Provider Beta</title>
+
         <link href="//assets.datacite.org/stylesheets/datacite.css" rel="stylesheet" type="text/css">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+          <link href="//fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700" rel="stylesheet">
+          <link href='//fonts.googleapis.com/css?family=Raleway:400,600,400italic,600italic' rel='stylesheet' type='text/css'>
       </head>
         <body>
             <div class="wrapper">
@@ -269,9 +272,7 @@
                                         <a href="http://search.datacite.org">DataCite Search</a>
                                         there is also a link to convert any custom query into a OAI-PMH request.</p>
                                     <h2>Help</h2>
-                                    <p>If you have questions please ask at the
-                                        <a href="http://groups.google.com/group/datacite-developers">Developers group</a>
-                                        or contact
+                                    <p>If you have questions please contact DataCite Support: 
                                         <script type="text/javascript">
                                             //<![CDATA[
                                             var m_ = "mailto:";
