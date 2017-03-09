@@ -13,7 +13,7 @@ To use this service please go to [http://oai.datacite.org](http://oai.datacite.o
 Using Docker.
 
 ```
-docker run -p 8080:8080 -v ~/.m2:/root/.m2 --env-file .env.example datacite/oaip:labs
+docker run -p 8080:8080 -v ~/.m2:/root/.m2 --env-file .env.example datacite/oaip
 ```
 
 You can now point your browser to `http://localhost:8080` and use the application.
