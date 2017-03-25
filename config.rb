@@ -13,20 +13,26 @@ page '/*.txt', layout: false
 # Reload the browser automatically whenever files change
 configure :development do
   activate :livereload
+end
 
+# Load data
+activate :data_source do |c|
+  c.root = "#{ENV['CDN_URL']}/data"
+  c.files = [
+    "links.json"
+  ]
 end
 
 # Set markdown template engine
-set :markdown_engine, :kramdown
-set :markdown, smartypants: true,
-               csl: "styles/apa.csl",
-               bibliography: "bibliography/references.bib"
+# Set markdown template engine
+set :markdown_engine, :pandoc
+set :markdown, smartypants: true
 
 # put configuration variables into .env file
 activate :dotenv
 
 # use asset host
-activate :asset_host, host: "//#{ENV['CDN_HOST']}"
+# activate :asset_host, host: "#{ENV['CDN_URL']}"
 
 ###
 # Helpers
