@@ -1,5 +1,7 @@
-FROM phusion/baseimage:0.9.19
-MAINTAINER Martin Fenner "mfenner@datacite.org"
+# FROM phusion/baseimage:0.9.19
+FROM phusion/passenger-full:0.9.19
+# FROM phusion/passenger-ruby23
+MAINTAINER Kristian Garza "kgarza@datacite.org"
 
 # Set correct environment variables
 ENV HOME /home/app
@@ -11,13 +13,12 @@ ENV CATALINA_SH /usr/share/tomcat7/bin/catalina.sh
 ENV CATALINA_TMPDIR /tmp/tomcat7-tomcat7-tmp
 ENV DOCKERIZE_VERSION v0.2.0
 ENV SHELL /bin/bash
-
 # Use baseimage-docker's init process
 CMD ["/sbin/my_init"]
 
 # Install Java and Tomcat
 RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-    apt-get update && apt-get install -y wget apt-utils && \
+    apt-get update && apt-get install -y wget apt-utils build-essential zlib1g-dev && \
     apt-get install -yqq software-properties-common && \
     add-apt-repository -y ppa:webupd8team/java && \
     apt-get update && \
@@ -47,8 +48,15 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 # Remove unused SSH service
 RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
 
+RUN usermod -a -G docker_env app
+
+# Install bundler
+RUN mkdir -p /home/app/vendor/bundle && \
+    chown -R app:app /home/app && \
+    chmod -R 755 /home/app
+
 # Use Amazon NTP servers
-COPY docker/ntp.conf /etc/ntp.conf
+COPY vendor/docker/ntp.conf /etc/ntp.conf
 
 # Copy webapp folder
 COPY . /home/app/
@@ -57,19 +65,26 @@ WORKDIR /home/app
 # Add Runit script for tomcat
 RUN mkdir /etc/service/tomcat && \
     chown tomcat7. /etc/service/tomcat -R
-COPY docker/tomcat.sh /etc/service/tomcat/run
+COPY vendor/docker/tomcat.sh /etc/service/tomcat/run
 RUN chmod +x /etc/service/tomcat/run
 
 # Copy server configuration (for context path)
-COPY docker/server.xml /etc/tomcat7/server.xml
+COPY vendor/docker/server.xml /etc/tomcat7/server.xml
+
+# Build static site
+WORKDIR /home/app
+RUN gem install bundler && \
+    bundle install --path vendor/bundle
+RUN bundle exec middleman build  && \
+    cp build/index.html src/main/webapp/index.jsp
+    ## TODO: env variables are not loading on building, why?
 
 # Run additional scripts during container startup (i.e. not at build time)
 # Process templates using ENV variables
 # Compile project
 RUN mkdir -p /etc/my_init.d
-COPY docker/70_templates.sh /etc/my_init.d/70_templates.sh
-COPY docker/80_install.sh /etc/my_init.d/80_install.sh
+COPY vendor/docker/70_templates.sh /etc/my_init.d/70_templates.sh
+COPY vendor/docker/80_install.sh /etc/my_init.d/80_install.sh
 RUN chmod +x /etc/my_init.d/70_templates.sh && \
     chmod +x  /etc/my_init.d/80_install.sh
-
 EXPOSE 8080
