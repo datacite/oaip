@@ -16,6 +16,9 @@ before_install:
   - sudo dpkg -i pandoc-1.15.2-1-amd64.deb
   - rm pandoc-1.15.2-1-amd64.deb
 
+install:
+  - bundle install
+
 before_script:
   - mysql -e 'create database oaip_test;'
 
