@@ -12,13 +12,14 @@ ENV CATALINA_PID /var/run/tomcat7.pid
 ENV CATALINA_SH /usr/share/tomcat7/bin/catalina.sh
 ENV CATALINA_TMPDIR /tmp/tomcat7-tomcat7-tmp
 ENV DOCKERIZE_VERSION v0.2.0
+ENV RACK_ENV production
 ENV SHELL /bin/bash
 # Use baseimage-docker's init process
 CMD ["/sbin/my_init"]
 
 # Install Java and Tomcat
 RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-    apt-get update && apt-get install -y wget apt-utils build-essential zlib1g-dev && \
+    apt-get update && apt-get install -y wget apt-utils build-essential zlib1g-dev pandoc && \
     apt-get install -yqq software-properties-common && \
     add-apt-repository -y ppa:webupd8team/java && \
     apt-get update && \
@@ -73,11 +74,11 @@ COPY vendor/docker/server.xml /etc/tomcat7/server.xml
 
 # Build static site
 WORKDIR /home/app
+# Build static site
 RUN gem install bundler && \
-    bundle install --path vendor/bundle
-RUN bundle exec middleman build  && \
+    bundle install && \
+    bundle exec middleman build -e $RACK_ENV && \
     cp build/index.html src/main/webapp/index.jsp
-    ## TODO: env variables are not loading on building, why?
 
 # Run additional scripts during container startup (i.e. not at build time)
 # Process templates using ENV variables

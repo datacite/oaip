@@ -12,10 +12,15 @@ before_install:
   - ./dockerize -template docker/database.properties.tmpl:src/main/resources/database.properties
   - ./dockerize -template docker/log4j.xml.tmpl:src/main/resources/log4j.xml
 
+  - wget https://github.com/jgm/pandoc/releases/download/1.15.2/pandoc-1.15.2-1-amd64.deb
+  - sudo dpkg -i pandoc-1.15.2-1-amd64.deb
+  - rm pandoc-1.15.2-1-amd64.deb
+
 before_script:
   - mysql -e 'create database oaip_test;'
 
 script:
+  - bundle exec middleman build -e $RACK_ENV
   - mvn clean test
 
 notifications:
