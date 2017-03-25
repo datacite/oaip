@@ -6,6 +6,15 @@ cache:
 
 
 before_install:
+  - set -e
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+      RACK_ENV="production";
+    elif [ "$TRAVIS_BRANCH" == "test" ]; then
+      RACK_ENV="stage";
+    else
+      exit 1;
+    fi
+
   - wget https://github.com/jwilder/dockerize/releases/download/v0.2.0/dockerize-linux-amd64-v0.2.0.tar.gz
   - tar -xzvf dockerize-linux-amd64-v0.2.0.tar.gz
   - rm dockerize-linux-amd64-v0.2.0.tar.gz
