@@ -10,11 +10,14 @@ before_install:
   - tar -xzvf dockerize-linux-amd64-v0.2.0.tar.gz
   - rm dockerize-linux-amd64-v0.2.0.tar.gz
   - ./dockerize -template vendor/docker/database.properties.tmpl:src/main/resources/database.properties
-  - ./dockerize -template venodr/docker/log4j.xml.tmpl:src/main/resources/log4j.xml
+  - ./dockerize -template vendor/docker/log4j.xml.tmpl:src/main/resources/log4j.xml
 
   - wget https://github.com/jgm/pandoc/releases/download/1.15.2/pandoc-1.15.2-1-amd64.deb
   - sudo dpkg -i pandoc-1.15.2-1-amd64.deb
   - rm pandoc-1.15.2-1-amd64.deb
+
+install:
+  - bundle install
 
 before_script:
   - mysql -e 'create database oaip_test;'
