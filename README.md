@@ -2,7 +2,9 @@
 
 [![Build Status](https://travis-ci.org/datacite/oaip.svg)](https://travis-ci.org/datacite/oaip)
 
-This is the OAI-PMH Data Provider (OAIP) application for the DataCite central infrastructure. This app is a servlet with the main functionality of disseminating the contents of the DataCite Metadata Store using OAI-PMH.
+This is the OAI-PMH Data Provider (OAIP) application for the DataCite central infrastructure.
+This app is a servlet with the main functionality of disseminating the contents of the
+DataCite Metadata Store using OAI-PMH.
 
 To learn more about DataCite please visit [our website](http://www.datacite.org)
 
