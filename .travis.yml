@@ -19,7 +19,7 @@ script:
   - mvn clean test
 
 after_success:
-  - set -e
+  # - set -e
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
   - REPO=datacite/oaip;
   - AUTO_DEPLOY=false;
