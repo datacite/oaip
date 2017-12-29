@@ -2,6 +2,8 @@ version: '2'
 
 services:
   oaip:
+    environment:
+      - LOG_LEVEL=DEBUG
     image: datacite/oaip
     ports:
       - "8030:80"
