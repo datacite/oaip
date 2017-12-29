@@ -82,9 +82,8 @@ WORKDIR /home/app
 # Process templates using ENV variables
 # Compile project
 RUN mkdir -p /etc/my_init.d
-COPY vendor/docker/60_middleman.sh /etc/my_init.d/60_middleman.sh
 COPY vendor/docker/70_templates.sh /etc/my_init.d/70_templates.sh
 COPY vendor/docker/80_install.sh /etc/my_init.d/80_install.sh
-COPY vendor/docker/100_nginx.sh /etc/my_init.d/100_nginx.sh
+COPY vendor/docker/90_index_page.sh /etc/my_init.d/90_index_page.sh
 
 EXPOSE 80
