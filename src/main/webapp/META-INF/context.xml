@@ -30,7 +30,7 @@
 	<Parameter name="datacitemds.DataciteOAICatalog.maxListSize" value="50" />
 	<Parameter name="datacitemds.DataciteOAIRecordFactory.repositoryIdentifier" value="oai.datacite.org" />
 	<Parameter name="datacitemds.Identify.repositoryName" value="DataCite MDS" />
-	<Parameter name="datacitemds.Identify.adminEmail" value="admin@datacite.org" />
+	<Parameter name="datacitemds.Identify.adminEmail" value="support@datacite.org" />
 	<Parameter name="datacitemds.Identify.earliestDatestamp" value="2011-01-01T00:00:00Z" />
 	<Parameter name="datacitemds.Identify.deletedRecord" value="persistent" />
 	<Parameter name="datacitemds.Identify.repositoryIdentifier" value="oai.datacite.org" />
