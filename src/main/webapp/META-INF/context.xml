@@ -39,7 +39,7 @@
 	<Parameter name="datacitemds.Crosswalks.oai_dc" value="datacite.oai.provider.server.crosswalk.Datacite2Oai_dc" />
 	<Parameter name="datacitemds.Crosswalks.datacite" value="datacite.oai.provider.server.crosswalk.DataciteDirect" />
 	<Parameter name="datacitemds.OAIHandler.styleSheet" value="xsl/oaitohtml.xsl" />
-  <Parameter name="datacitemds.OAIHandler.baseURL" value="http://oai.datacite.org/oai" />
+  <Parameter name="datacitemds.OAIHandler.baseURL" value="https://oai.datacite.org/oai" />
 
 	<!-- OAICat properties -->
 	<!-- *************************************************************************** -->
