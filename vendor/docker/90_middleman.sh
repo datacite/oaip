@@ -1,2 +1,3 @@
 #!/bin/sh
-bundle exec middleman
+cd vendor/middleman
+bundle exec middleman build -e ${RAILS_ENV}

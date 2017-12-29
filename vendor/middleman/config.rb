@@ -1,6 +1,17 @@
 ###
 # Page options, layouts, aliases and proxies
 ###
+
+# Default ENV variables
+ENV['CDN_URL'] ||= "https://assets.datacite.org"
+ENV['RAILS_ENV'] ||= "development"
+ENV['SITE_TITLE'] ||= "DataCite OAI-PMH Provider"
+ENV['SITE_DESCRIPTION'] ||= "The DataCite OAI-PMH provider."
+ENV['TWITTER_HANDLE'] ||= "@datacite"
+
+# Build into /public
+set :build_dir, "../../public"
+
 # Per-page layout changes:
 #
 # With no layout
@@ -24,32 +35,18 @@ activate :data_source do |c|
 end
 
 # Set markdown template engine
-# Set markdown template engine
 set :markdown_engine, :pandoc
 set :markdown, smartypants: true
 
-# put configuration variables into .env file
-activate :dotenv
-
 # use asset host
-# activate :asset_host, host: "#{ENV['CDN_URL']}"
+activate :asset_host, host: ENV['CDN_URL']
 
 ###
 # Helpers
 ###
-
 # Methods defined in the helpers block are available in templates
 helpers do
   def stage?
-    ENV['RACK_ENV'] == "stage"
+    ENV['RAILS_ENV'] == "stage"
   end
-end
-
-# Build-specific configuration
-configure :build do
-  # Minify CSS on build
-  activate :minify_css
-
-  # Minify Javascript on build
-  activate :minify_javascript
 end
