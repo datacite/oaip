@@ -17,7 +17,7 @@ CMD ["/sbin/my_init"]
 
 # Install Java and Tomcat
 RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-    apt-get update && apt-get install -y wget apt-utils build-essential zlib1g-dev pandoc && \
+    apt-get update && apt-get install -y wget apt-utils build-essential zlib1g-dev git nodejs ruby ruby-dev pandoc && \
     apt-get install -yqq software-properties-common && \
     add-apt-repository -y ppa:webupd8team/java && \
     apt-get update && \
@@ -48,20 +48,13 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 # Remove unused SSH service
 RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
 
-RUN usermod -a -G docker_env app
-
 # configure nginx
 # forward request and error logs to docker log collector
 # RUN ufw allow 'Nginx HTTP' && \
 RUN rm /etc/nginx/sites-enabled/default && \
     ln -sf /dev/stdout /var/log/nginx/access.log && \
 	  ln -sf /dev/stderr /var/log/nginx/error.log
-COPY docker/cors /etc/nginx/conf.d/cors
-
-# Install bundler
-RUN mkdir -p /home/app/vendor/bundle && \
-    chown -R app:app /home/app && \
-    chmod -R 755 /home/app
+COPY vendor/docker/cors /etc/nginx/conf.d/cors
 
 # Use Amazon NTP servers
 COPY vendor/docker/ntp.conf /etc/ntp.conf
@@ -74,7 +67,6 @@ WORKDIR /home/app
 RUN mkdir /etc/service/tomcat && \
     chown tomcat7. /etc/service/tomcat -R
 COPY vendor/docker/tomcat.sh /etc/service/tomcat/run
-RUN chmod +x /etc/service/tomcat/run
 
 # Copy server configuration (for context path)
 COPY vendor/docker/server.xml /etc/tomcat7/server.xml
@@ -82,7 +74,8 @@ COPY vendor/docker/server.xml /etc/tomcat7/server.xml
 # Build static site
 WORKDIR /home/app
 # Build static site
-RUN gem install bundler && \
+RUN mkdir -p /home/app/vendor/bundle && \
+    gem install bundler && \
     bundle install && \
     bundle exec middleman build -e $RACK_ENV && \
     cp build/index.html src/main/webapp/index.jsp
