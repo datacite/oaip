@@ -1,6 +1,4 @@
-# FROM phusion/baseimage:0.9.19
-FROM phusion/passenger-full:0.9.19
-# FROM phusion/passenger-ruby23
+FROM phusion/baseimage:0.9.22
 MAINTAINER Kristian Garza "kgarza@datacite.org"
 
 # Set correct environment variables
@@ -11,7 +9,7 @@ ENV CATALINA_BASE /var/lib/tomcat7
 ENV CATALINA_PID /var/run/tomcat7.pid
 ENV CATALINA_SH /usr/share/tomcat7/bin/catalina.sh
 ENV CATALINA_TMPDIR /tmp/tomcat7-tomcat7-tmp
-ENV DOCKERIZE_VERSION v0.2.0
+ENV DOCKERIZE_VERSION v0.6.0
 ENV SHELL /bin/bash
 
 # Use baseimage-docker's init process
@@ -26,6 +24,7 @@ RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true 
     apt-get install -yqq oracle-java8-installer && \
     apt-get install -yqq oracle-java8-set-default && \
     apt-get -yqq install tomcat7 maven && \
+    apt-get install -y nginx nano && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     rm -rf /var/cache/oracle-jdk8-installer
@@ -50,6 +49,14 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
 
 RUN usermod -a -G docker_env app
+
+# configure nginx
+# forward request and error logs to docker log collector
+# RUN ufw allow 'Nginx HTTP' && \
+RUN rm /etc/nginx/sites-enabled/default && \
+    ln -sf /dev/stdout /var/log/nginx/access.log && \
+	  ln -sf /dev/stderr /var/log/nginx/error.log
+COPY docker/cors /etc/nginx/conf.d/cors
 
 # Install bundler
 RUN mkdir -p /home/app/vendor/bundle && \
@@ -86,6 +93,6 @@ RUN gem install bundler && \
 RUN mkdir -p /etc/my_init.d
 COPY vendor/docker/70_templates.sh /etc/my_init.d/70_templates.sh
 COPY vendor/docker/80_install.sh /etc/my_init.d/80_install.sh
-RUN chmod +x /etc/my_init.d/70_templates.sh && \
-    chmod +x  /etc/my_init.d/80_install.sh
+COPY docker/90_nginx.sh /etc/my_init.d/90_nginx.sh
+
 EXPOSE 8080
