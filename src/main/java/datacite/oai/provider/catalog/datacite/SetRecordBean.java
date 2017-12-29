@@ -3,10 +3,10 @@ package datacite.oai.provider.catalog.datacite;
 /*******************************************************************************
 * Copyright (c) 2011 DataCite
 *
-* All rights reserved. This program and the accompanying 
-* materials are made available under the terms of the 
-* Apache License, Version 2.0 which accompanies 
-* this distribution, and is available at 
+* All rights reserved. This program and the accompanying
+* materials are made available under the terms of the
+* Apache License, Version 2.0 which accompanies
+* this distribution, and is available at
 * http://www.apache.org/licenses/LICENSE-2.0
 *
 *******************************************************************************/
@@ -25,7 +25,7 @@ import datacite.oai.provider.Constants;
 public class SetRecordBean implements Serializable{
 
     private static final long serialVersionUID = 1L;
-        
+
     private String name;
     private String symbol;
 
@@ -52,20 +52,12 @@ public class SetRecordBean implements Serializable{
      */
     public String getSetSpec(){
         StringBuilder sb = new StringBuilder();
-        
+
         sb.append("<set><setSpec>");
         sb.append(StringEscapeUtils.escapeXml(symbol));
         sb.append("</setSpec><setName>");
         sb.append(StringEscapeUtils.escapeXml(name));
         sb.append("</setName></set>");
         return sb.toString();
-    }
-    
-    /**
-     * Creates a new reference quality version of this set.
-     * @return a new SetRecordBean representing a reference quality version of this set.
-     */
-    public SetRecordBean createRefQualitySet(){        
-        return new SetRecordBean(getSymbol()+Constants.Set.REF_QUALITY_SUFFIX,getName()+" (reference quality citations only)");        
     }
 }

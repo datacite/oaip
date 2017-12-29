@@ -85,11 +85,10 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
         String symbol = (String) doc.getFieldValue("datacentre_symbol");
         byte[] xml = (byte[]) doc.getFieldValue("xml");
         Date updateDate = (Date) doc.getFieldValue("updated");
-        Boolean refQuality = (Boolean) doc.getFieldValue("refQuality");
         Boolean isActive = (Boolean) doc.getFieldValue("has_metadata") && (Boolean) doc.getFieldValue("is_active");
         String schemaVersion = (String) doc.getFieldValue("schema_version");
 
-        DatasetRecordBean record = new DatasetRecordBean(id, xml, schemaVersion, updateDate, refQuality, isActive, symbol);
+        DatasetRecordBean record = new DatasetRecordBean(id, xml, schemaVersion, updateDate, isActive, symbol);
         return record;
     }
 
@@ -153,16 +152,8 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
         if (setspec != null && setspec.trim().length() > 0) {
             setspec = setspec.trim().toUpperCase();
 
-            if (setspec.equalsIgnoreCase(Constants.Set.REF_QUALITY)) {
-                query.addFilterQuery("refQuality:true");
-            } else {
-                if (setspec.endsWith(Constants.Set.REF_QUALITY_SUFFIX)) {
-                    query.addFilterQuery("refQuality:true");
-                    setspec = setspec.substring(0, setspec.lastIndexOf(Constants.Set.REF_QUALITY_SUFFIX));
-                }
-                String field = setspec.contains(".") ? "datacentre_symbol" : "allocator_symbol";
-                query.addFilterQuery(field + ":" + setspec);
-            }
+            String field = setspec.contains(".") ? "datacentre_symbol" : "allocator_symbol";
+            query.addFilterQuery(field + ":" + setspec);
         }
 
         String from = dateFormat.format(updateDateFrom);
@@ -170,8 +161,7 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
 
         query.addFilterQuery("updated:[" + from + " TO " + to + "]");
 
-        query.setParam(CommonParams.QT, "/public/api");
-        // query.setParam(CommonParams.QT, "/api");
+        query.setParam(CommonParams.QT, "/api");
 
         return query;
     }

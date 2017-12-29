@@ -1,12 +1,11 @@
 version: '2'
 
 services:
-  oai:
-    env_file: .env
-    image: datacite/oaip:test
+  oaip:
+    environment:
+      - LOG_LEVEL=DEBUG
+    image: datacite/oaip
     ports:
-      - "8080:8080"
-      - "4567:4567"
+      - "8030:80"
     volumes:
       - ~/.m2:/root/.m2
-      - ./source:/home/app/source
