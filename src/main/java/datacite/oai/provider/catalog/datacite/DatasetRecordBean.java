@@ -3,10 +3,10 @@ package datacite.oai.provider.catalog.datacite;
 /*******************************************************************************
 * Copyright (c) 2011 DataCite
 *
-* All rights reserved. This program and the accompanying 
-* materials are made available under the terms of the 
-* Apache License, Version 2.0 which accompanies 
-* this distribution, and is available at 
+* All rights reserved. This program and the accompanying
+* materials are made available under the terms of the
+* Apache License, Version 2.0 which accompanies
+* this distribution, and is available at
 * http://www.apache.org/licenses/LICENSE-2.0
 *
 *******************************************************************************/
@@ -19,24 +19,23 @@ import java.util.List;
 import datacite.oai.provider.Constants;
 
 /**
- * Encapsulates a single DataCite record in the MDS. 
+ * Encapsulates a single DataCite record in the MDS.
  * @author PaluchM
  *
  */
 public class DatasetRecordBean implements Serializable{
 
     private static final long serialVersionUID = 1L;
-    
+
     private String id;
-    
+
     private byte[] metadata;
-    
+
     private Date updateDate;
-    
+
     private String symbol;
-    private boolean refQuality;
     private boolean isActive;
-    
+
     private String schemaVersion;
 
     /**
@@ -44,14 +43,12 @@ public class DatasetRecordBean implements Serializable{
      * @param id
      * @param metadata
      * @param updateDate
-     * @param refQuality
      * @param isActive
      * @param symbol
      */
-    public DatasetRecordBean(String id,byte[] metadata,String schemaVersion, Date updateDate,boolean refQuality,boolean isActive,String symbol){
-        this.id = id;        
+    public DatasetRecordBean(String id,byte[] metadata,String schemaVersion, Date updateDate,boolean isActive,String symbol){
+        this.id = id;
         this.updateDate = updateDate;
-        this.refQuality = refQuality;
         this.isActive = isActive;
         this.symbol = symbol;
         this.schemaVersion = schemaVersion;
@@ -66,12 +63,12 @@ public class DatasetRecordBean implements Serializable{
     public void setMetadata(byte[] metadata){
     	this.metadata = metadata;
     }
-    
+
     public byte[] getMetadata() {
         return this.metadata;
     }
 
-    public Date getUpdateDate() { 
+    public Date getUpdateDate() {
         return this.updateDate;
     }
 
@@ -81,14 +78,6 @@ public class DatasetRecordBean implements Serializable{
 
     public String getSymbol() {
         return symbol;
-    }
-
-    public void setRefQuality(boolean refQuality) {
-        this.refQuality = refQuality;
-    }
-
-    public boolean isRefQuality() {
-        return refQuality;
     }
 
     /**
@@ -121,31 +110,25 @@ public class DatasetRecordBean implements Serializable{
      */
     public boolean isActive() {
         return isActive;
-    }    
-    
+    }
+
     /**
-     * Creates a set listing for this record. 
+     * Creates a set listing for this record.
      * @return an array containing all of the 'sets' that this record is a part of.
      */
     public List<String> getSetList(){
         String symbol = getSymbol();
         LinkedList<String> sets = new LinkedList<String>();
-        
+
         if (symbol != null && symbol.trim().length()>0){
             sets.add(symbol);
-            if (isRefQuality()){
-                sets.add((symbol+Constants.Set.REF_QUALITY_SUFFIX).toUpperCase());
-            }
         }
-        
+
         while (symbol.contains(".")){
             symbol = symbol.substring(0,symbol.lastIndexOf("."));
-            if (isRefQuality()){
-                sets.add((symbol+Constants.Set.REF_QUALITY_SUFFIX).toUpperCase());
-            }
             sets.add(0,symbol);
         }
-        
+
         return sets;
     }
 

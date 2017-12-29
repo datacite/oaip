@@ -3,10 +3,10 @@ package datacite.oai.provider.catalog.datacite;
 /*******************************************************************************
 * Copyright (c) 2011 DataCite
 *
-* All rights reserved. This program and the accompanying 
-* materials are made available under the terms of the 
-* Apache License, Version 2.0 which accompanies 
-* this distribution, and is available at 
+* All rights reserved. This program and the accompanying
+* materials are made available under the terms of the
+* Apache License, Version 2.0 which accompanies
+* this distribution, and is available at
 * http://www.apache.org/licenses/LICENSE-2.0
 *
 *******************************************************************************/
@@ -80,23 +80,20 @@ public class MDSSetCache {
 
     private void refreshCacheImpl() throws Exception {
         setlist = new LinkedList<SetRecordBean>();
+        setlist = new LinkedList<SetRecordBean>();
 
-        //Add the basic reference quality set
-        setlist.add(new SetRecordBean(Constants.Set.REF_QUALITY,"Reference quality citations only."));
-        
         ServiceCollection services = ServiceCollection.getInstance();
         MDSSearchService mdsService = services.getMDSSearchService();
         Pair<List<SetRecordBean>,Integer> result = mdsService.getSets();
 
-        List<SetRecordBean> newSets = result.getFirst(); 
-        
+        List<SetRecordBean> newSets = result.getFirst();
+
         if (newSets != null) {
             for (SetRecordBean set : newSets) {
                 setlist.add(set);
-                setlist.add(set.createRefQualitySet());
             }
         }
-        
+
     }
 
     /**
@@ -108,7 +105,7 @@ public class MDSSetCache {
         refreshCache();
         return setlist;
     }
-    
+
     /**
      * Returns a result containing the requested sets from the cache and the total cache size.
      * @param offset The offset at which to start returning sets.
