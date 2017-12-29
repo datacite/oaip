@@ -9,9 +9,6 @@ ENV['SITE_TITLE'] ||= "DataCite OAI-PMH Provider"
 ENV['SITE_DESCRIPTION'] ||= "The DataCite OAI-PMH provider."
 ENV['TWITTER_HANDLE'] ||= "@datacite"
 
-# Build into /public
-set :build_dir, "../../public"
-
 # Per-page layout changes:
 #
 # With no layout
