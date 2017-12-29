@@ -15,10 +15,10 @@ To use this service please go to [http://oai.datacite.org](http://oai.datacite.o
 Using Docker.
 
 ```
-docker run -p 8080:8080 -v ~/.m2:/root/.m2 --env-file .env.example datacite/oaip
+docker run -p 8030:80 -v ~/.m2:/root/.m2 datacite/oaip
 ```
 
-You can now point your browser to `http://localhost:8080` and use the application.
+You can now point your browser to `http://localhost:8030` and use the application.
 
 For a more detailed configuration, including using a lcoal Maven repository on the host, look at `docker-compose.yml` in the root folder.
 
