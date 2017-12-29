@@ -1,29 +1,10 @@
-# log4j.rootLogger=INFO, R
-#
-# #
-# # Enables debug output for Probe classes.
-# #
-# #log4j.logger.com.googlecode.psiprobe=DEBUG
-# log4j.logger.org.springframework.web.context.support=ERROR
-# log4j.logger.org.springframework.beans.factory.support=ERROR
+# Root logger option
+log4j.rootLogger=INFO, stdout
+log4j.logger.org.oclc=WARN
+log4j.logger.datacite.oai={{ default .Env.LOG_LEVEL "INFO" }}
 
-#
-# log4j.appender.R=org.apache.log4j.RollingFileAppender
-# log4j.appender.R.File={{ .Env.CATALINA_BASE }}/logs/probe.log
-# log4j.appender.R.MaxFileSize=5036KB
-# log4j.appender.R.MaxBackupIndex=4
-# log4j.appender.R.layout=org.apache.log4j.PatternLayout
-# log4j.appender.R.layout.ConversionPattern=%d{dd MMM yyyy HH:mm:ss} [%t] %-5p %c %x - %m%n
-
-# Set root category priority to INFO and its only appender to Logfile.
-log4j.rootLogger={{ .Env.LOG_LEVEL }}, Logfile
-
-# LOGFILE is set to be a File appender using a PatternLayout.
-log4j.appender.Logfile=org.apache.log4j.RollingFileAppender
-log4j.appender.Logfile.File={{ .Env.CATALINA_BASE }}/logs/probe.log
-log4j.appender.Logfile.MaxFileSize=3000KB
-log4j.appender.Logfile.MaxBackupIndex=6
-log4j.appender.Logfile.Append=true
-log4j.appender.Logfile.Threshold=DEBUG
-log4j.appender.Logfile.layout=org.apache.log4j.PatternLayout
-log4j.appender.Logfile.layout.ConversionPattern=%d %-4r (%F:%L) %-5p %c %x - %m%n
+# Direct log messages to stdout
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.Target=System.out
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
