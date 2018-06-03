@@ -54,6 +54,8 @@ RUN rm -f /etc/service/nginx/down && \
     rm /etc/nginx/sites-enabled/default && \
     ln -sf /dev/stdout /var/log/nginx/access.log && \
 	  ln -sf /dev/stderr /var/log/nginx/error.log
+COPY vendor/docker/nginx.conf /etc/nginx/nginx.conf
+COPY vendor/docker/webapp.conf /etc/nginx/sites-enabled/webapp.conf
 COPY vendor/docker/cors /etc/nginx/conf.d/cors
 
 # Use Amazon NTP servers

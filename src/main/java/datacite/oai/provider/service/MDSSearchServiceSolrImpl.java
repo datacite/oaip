@@ -105,7 +105,7 @@ public class MDSSearchServiceSolrImpl extends MDSSearchService {
 
         SolrQuery query = constructSolrQuery(updateDateFrom, updateDateTo, setspec, offset, length);
 
-        logger.info(query);
+        logger.debug(query);
 
         try {
             QueryResponse response = solrServer.query(query);

@@ -7,3 +7,7 @@
 /src/main/resources/log4j.properties
 /src/main/resources/log4j.xml
 .env
+.env.*
+!.env.example
+!.env.travis
+docker-compose.override.yml

@@ -79,7 +79,7 @@ public class DataciteOAICatalog extends AbstractCatalog {
     public Vector getSchemaLocations(String identifier) throws IdDoesNotExistException,NoMetadataFormatsException,OAIInternalServerError {
 
         if (logger.isInfoEnabled()) {
-            logger.info("[getSchemaLocations]: identifier=" + identifier );
+            logger.debug("[getSchemaLocations]: identifier=" + identifier );
         }
 
         DatasetRecordBean dataset = null;
@@ -135,7 +135,7 @@ public class DataciteOAICatalog extends AbstractCatalog {
     public Map listIdentifiers(String from,String until,String set,String metadataPrefix) throws NoItemsMatchException,OAIInternalServerError {
 
         if (logger.isInfoEnabled()) {
-            logger.info("[listIdentifiers]: from=" + from + ", until=" + until + ", set=" + set + ", metadataPrefix=" + metadataPrefix );
+            logger.debug("[listIdentifiers]: from=" + from + ", until=" + until + ", set=" + set + ", metadataPrefix=" + metadataPrefix );
         }
 
         // Parse the dates
@@ -228,7 +228,7 @@ public class DataciteOAICatalog extends AbstractCatalog {
     public Map listIdentifiers(String resumptionToken) throws BadResumptionTokenException,OAIInternalServerError {
 
         if (logger.isInfoEnabled()) {
-            logger.info("[listIdentifiers]: resumptionToken=" + resumptionToken);
+            logger.debug("[listIdentifiers]: resumptionToken=" + resumptionToken);
         }
 
         if (resumptionToken == null) {
@@ -333,7 +333,7 @@ public class DataciteOAICatalog extends AbstractCatalog {
     public String getRecord(String identifier, String metadataPrefix) throws CannotDisseminateFormatException,IdDoesNotExistException,OAIInternalServerError {
 
         if (logger.isInfoEnabled()) {
-            logger.info("[getRecord]: identifier=" + identifier +", metadataPrefix=" + metadataPrefix);
+            logger.debug("[getRecord]: identifier=" + identifier +", metadataPrefix=" + metadataPrefix);
         }
 
         DatasetRecordBean dataset = null;
@@ -389,7 +389,7 @@ public class DataciteOAICatalog extends AbstractCatalog {
     public Map listRecords(String from,String until,String set,String metadataPrefix) throws CannotDisseminateFormatException,NoItemsMatchException,OAIInternalServerError {
 
         if (logger.isInfoEnabled()) {
-            logger.info("[listRecords]: from=" + from + ", until=" + until + ", set=" + set + ", metadataPrefix=" + metadataPrefix );
+            logger.debug("[listRecords]: from=" + from + ", until=" + until + ", set=" + set + ", metadataPrefix=" + metadataPrefix );
         }
 
         // Parse the dates
@@ -478,7 +478,7 @@ public class DataciteOAICatalog extends AbstractCatalog {
     public Map listRecords(String resumptionToken) throws BadResumptionTokenException,OAIInternalServerError {
 
         if (logger.isInfoEnabled()) {
-            logger.info("[listRecords]: resumptionToken=" + resumptionToken);
+            logger.debug("[listRecords]: resumptionToken=" + resumptionToken);
         }
 
         if (resumptionToken == null) {
@@ -606,7 +606,7 @@ public class DataciteOAICatalog extends AbstractCatalog {
     public Map listSets() throws NoSetHierarchyException, OAIInternalServerError{
 
         if (logger.isInfoEnabled()) {
-            logger.info("[listSets]");
+            logger.debug("[listSets]");
         }
         Pair<List<SetRecordBean>,Integer> results = null;
         
@@ -675,7 +675,7 @@ public class DataciteOAICatalog extends AbstractCatalog {
     public Map listSets(String resumptionToken) throws BadResumptionTokenException, OAIInternalServerError {
 
         if (logger.isInfoEnabled()) {
-            logger.info("[listSets]: resumptionToken=" + resumptionToken);
+            logger.debug("[listSets]: resumptionToken=" + resumptionToken);
         }
 
         if (resumptionToken == null) {

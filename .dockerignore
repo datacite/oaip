@@ -1,4 +1,7 @@
+.env
+.env.*
+.bundle
 .git
 log/*
 tmp/*
-.DS_Store
+vendor/bundle/*
