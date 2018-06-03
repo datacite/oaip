@@ -2,13 +2,12 @@
 
 [![Build Status](https://travis-ci.org/datacite/oaip.svg)](https://travis-ci.org/datacite/oaip)
 
-This is the OAI-PMH Data Provider (OAIP) application for the DataCite central infrastructure.
-This app is a servlet with the main functionality of disseminating the contents of the
-DataCite Metadata Store using OAI-PMH.
+This is the DataCite OAI-PMH Data Provider (OAIP). This app is a servlet with the main functionality 
+of disseminating the contents of the DataCite Metadata Store using OAI-PMH.
 
 To learn more about DataCite please visit [our website](http://www.datacite.org)
 
-To use this service please go to [http://oai.datacite.org](http://oai.datacite.org)
+To use this service please go to [https://oai.datacite.org](https://oai.datacite.org)
 
 ## Installation
 
@@ -24,7 +23,7 @@ For a more detailed configuration, including using a lcoal Maven repository on t
 
 ## Development
 
-Follow along via [Github Issues](https://github.com/datacite/content-resolver/issues).
+Follow along via [Github Issues](https://github.com/datacite/oaip/issues).
 
 ### Note on Patches/Pull Requests
 
@@ -35,4 +34,4 @@ Follow along via [Github Issues](https://github.com/datacite/content-resolver/is
 * Commit, push and make a pull request. Bonus points for topical branches.
 
 ## License
-**Content Resolver** is released under the [Apache 2 License](https://github.com/datacite/content-resolver/blob/master/LICENSE).
+**OAIP** is released under the [Apache 2 License](https://github.com/datacite/oaip/blob/master/LICENSE).
