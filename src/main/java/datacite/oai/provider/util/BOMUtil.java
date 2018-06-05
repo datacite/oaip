@@ -32,7 +32,7 @@ public class BOMUtil {
 	/**UTF-32 Big Endian Byte Order Mark **/
 	public static final byte[] UTF32BE_BOM = {(byte)0x00,(byte)0x00,(byte)0xFE,(byte)0xFF};
 	/**UTF-32 Little Endian Byte Order Mark **/
-	public static final byte[] UTF32LE_BOM = {(byte)0xFF,(byte)0xFE,(byte)0xFE,(byte)0xFF};
+	public static final byte[] UTF32LE_BOM = {(byte)0xFF,(byte)0xFE,(byte)0x00,(byte)0x00};
 		
 	/** Mapping of encoding string (alphanumeric only) to BOM **/
 	private static final HashMap<String,byte[]> BOM_MAP = new HashMap<String,byte[]>();
