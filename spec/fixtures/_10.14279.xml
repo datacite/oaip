@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="http://datacite.org/schema/kernel-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dspace="http://www.dspace.org/xmlns/dspace/dim" xsi:schemaLocation="http://datacite.org/schema/kernel-3 http://schema.datacite.org/meta/kernel-3/metadata.xsd">
+  <identifier identifierType="DOI">10.14279/DEPOSITONCE-7023</identifier>
+  <creators>
+    <creator>
+      <creatorName>Van den Heede, Koen</creatorName>
+    </creator>
+    <creator>
+      <creatorName>Quentin, Wilm</creatorName>
+    </creator>
+    <creator>
+      <creatorName>Dubois, Cécile</creatorName>
+    </creator>
+    <creator>
+      <creatorName>Devriese, Stephan</creatorName>
+    </creator>
+    <creator>
+      <creatorName>Van de Voorde, Carine</creatorName>
+    </creator>
+  </creators>
+  <titles>
+    <title>The 2016 proposal for the reorganisation of urgent care provision in Belgium</title>
+    <title titleType="Subtitle">A political struggle to co-locate primary care providers and emergency departments</title>
+  </titles>
+  <publisher>Technische Universität Berlin</publisher>
+  <publicationYear>2017</publicationYear>
+  <subjects>
+    <subject subjectScheme="ddc">610 Medizin und Gesundheit</subject>
+    <subject subjectScheme="other">emergency medical services</subject>
+    <subject subjectScheme="other">ambulatory care</subject>
+    <subject subjectScheme="other">health services research</subject>
+    <subject subjectScheme="other">health care reform</subject>
+    <subject subjectScheme="other">utilization</subject>
+  </subjects>
+  <contributors>
+    <contributor contributorType="DataManager">
+      <contributorName>Technische Universität Berlin</contributorName>
+    </contributor>
+    <contributor contributorType="HostingInstitution">
+      <contributorName>Technische Universität Berlin</contributorName>
+    </contributor>
+  </contributors>
+  <dates>
+    <date dateType="Accepted">2018-05-28</date>
+    <date dateType="Available">2018-05-28</date>
+    <date dateType="Issued">2017-04</date>
+  </dates>
+  <alternateIdentifiers>
+    <alternateIdentifier alternateIdentifierType="issn">0168-8510</alternateIdentifier>
+    <alternateIdentifier alternateIdentifierType="uri">https://depositonce.tu-berlin.de//handle/11303/7863</alternateIdentifier>
+  </alternateIdentifiers>
+  <rightsList>
+    <rights rightsURI="https://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+  </rightsList>
+  <descriptions>
+    <description descriptionType="Abstract">Internationally the number of emergency department (ED) visits is on the rise while evidence suggests that a substantial proportion of these patients do not require emergency care but primary care. This paper presents the Belgian 2016 proposal for the reorganisation of urgent care provision and places it into its political context. The proposal focused on re-designing patient flow aiming to reduce inappropriate ED visits by improving guidance of patients through the system. Initially policymakers envisaged, as cornerstone of the reform, to roll-out as standard model the co-location of primary care centres and EDs. Yet, this was substantially toned down in the final policy decisions mainly because GPs strongly opposed this model (because of increased workload and loss of autonomy, hospital-centrism, etc.). In fact, the final compromise assures a great degree of autonomy for GPs in organising out-of-hours care. Therefore, improvements will depend on future developments in the field and continuous monitoring of (un-)intended effects is certainly indicated. This policy process makes clear how important it is to involve all relevant stakeholders as early as possible in the development of a reform proposal to take into account their concerns, to illustrate the benefits of the reform and ultimately to gain buy-in for the reform.</description>
+  </descriptions>
+</resource>
