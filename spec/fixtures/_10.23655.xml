@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://datacite.org/schema/kernel-3" xsi:schemaLocation="http://datacite.org/schema/kernel-3 http://schema.datacite.org/meta/kernel-3/metadata.xsd">
+  <identifier identifierType="DOI">10.23650/DATA.G.2018.P1</identifier>
+  <creators>
+    <creator>
+      <creatorName>HOLA</creatorName>
+      <affiliation>DORR</affiliation>
+    </creator>
+  </creators>
+  <titles>
+    <title xml:lang="en-us">ASSSL</title>
+  </titles>
+  <publisher>CORA</publisher>
+  <publicationYear>2018</publicationYear>
+  <subjects>
+    <subject xml:lang="en-us" schemeURI="" subjectScheme="">SOBA</subject>
+  </subjects>
+  <contributors>
+    <contributor contributorType="ContactPerson">
+      <contributorName>SHIBA</contributorName>
+      <affiliation>LILA</affiliation>
+    </contributor>
+  </contributors>
+  <dates>
+    <date dateType="Accepted">2018-01-26</date>
+  </dates>
+  <language>chi</language>
+  <resourceType resourceTypeGeneral="Dataset">Geochemistry</resourceType>
+  <sizes>
+    <size>220 kB</size>
+  </sizes>
+  <formats>
+    <format>excel</format>
+  </formats>
+  <version>1.0</version>
+  <rightsList>
+    <rights rightsURI="http://dcc.ngac.org.cn/home/dataauth.htm">HIPPO</rights>
+  </rightsList>
+  <descriptions>
+    <description xml:lang="en-us" descriptionType="Abstract">MALA</description>
+  </descriptions>
+</resource>

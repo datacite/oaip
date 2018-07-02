@@ -7,7 +7,6 @@ require 'nokogiri'
 
 RSpec.configure do |config|
   config.order = :random
-  config.include RSpec::XSD
   # config.include Rack::Test::Methods
   config.expect_with :rspec do |c|
     c.syntax = :expect
