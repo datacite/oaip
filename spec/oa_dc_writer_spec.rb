@@ -3,7 +3,8 @@ require 'spec_helper'
 describe "XML Transformation" do
 
   context "against schema 4" do
-    let!(:template) { Dir.chdir(RSPEC_ROOT) {Nokogiri::XSLT(File.read('/home/app/src/main/webapp/xsl/kernel4_to_oaidc.xsl')) }}
+    let(:path) {File.realpath('src/main/webapp/xsl/kernel4_to_oaidc.xsl')}
+    let!(:template)  {Nokogiri::XSLT(File.read(path)) }
 
     describe "Good XML" do
       let(:document) { Dir.chdir(RSPEC_ROOT) {Nokogiri::XML(File.read('fixtures/_10.5072.xml'), nil, 'UTF-8', &:noblanks) }}
