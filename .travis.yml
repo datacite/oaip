@@ -4,9 +4,15 @@ sudo: required
 cache:
   directories:
     - $HOME/.m2
+language: ruby
+rvm:
+- 2.3.1
 
 services:
   - docker
+
+install:
+  - travis_retry bundle install
 
 before_install:
   - wget https://github.com/jwilder/dockerize/releases/download/v0.6.0/dockerize-linux-amd64-v0.6.0.tar.gz
@@ -17,6 +23,7 @@ before_install:
 
 script:
   - mvn clean test
+  - bundle exec rspec
 
 after_success:
   # - set -e

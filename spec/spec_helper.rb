@@ -6,6 +6,7 @@ require 'rspec'
 require 'nokogiri'
 
 RSpec.configure do |config|
+  RSPEC_ROOT = File.dirname __FILE__
   config.order = :random
   # config.include Rack::Test::Methods
   config.expect_with :rspec do |c|

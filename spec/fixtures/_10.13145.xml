@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://datacite.org/schema/kernel-4" xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
+  <identifier identifierType="DOI">10.13145/BACDIVE139518.20180622.3</identifier>
+  <creators>
+    <creator>
+      <creatorName>Reimer, L.C.</creatorName>
+    </creator>
+    <creator>
+      <creatorName>Sarda Carbasse, J.</creatorName>
+    </creator>
+    <creator>
+      <creatorName>Soehngen, C.</creatorName>
+    </creator>
+    <creator>
+      <creatorName>Podstawka, A.</creatorName>
+    </creator>
+    <creator>
+      <creatorName>Gleim, D.</creatorName>
+    </creator>
+    <creator>
+      <creatorName>Overmann, J.</creatorName>
+    </creator>
+  </creators>
+  <titles>
+    <title>Staphylococcus aureus</title>
+  </titles>
+  <publisher>DSMZ</publisher>
+  <publicationYear>2018</publicationYear>
+  <subjects>
+    <subject>Strain-linked information about bacterial and archaeal biodiversity</subject>
+  </subjects>
+  <dates>
+    <date dateType="Issued">2018-06-22</date>
+  </dates>
+  <language>en</language>
+  <resourceType resourceTypeGeneral="Dataset">bacterial metadata</resourceType>
+  <version>3.0</version>
+  <descriptions>
+    <description descriptionType="Abstract">The range of data encompasses taxonomy, morphology, physiology, sampling and concomitant environmental conditions as well as molecular biology.</description>
+  </descriptions>
+</resource>

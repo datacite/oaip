@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://datacite.org/schema/kernel-4" xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
+  <identifier xmlns="http://datacite.org/schema/kernel-4" identifierType="DOI">10.23650/DATA.G.2018.P1</identifier>
+  <creators xmlns="http://datacite.org/schema/kernel-4">
+    <creator>
+      <creatorName>HOLA</creatorName>
+      <givenName/>
+      <familyName/>
+      <affiliation>DORR</affiliation>
+    </creator>
+  </creators>
+  <titles xmlns="http://datacite.org/schema/kernel-4">
+    <title xml:lang="en-us">ASSSL</title>
+    <title xml:lang="en-us" titleType="TranslatedTitle">BGH</title>
+  </titles>
+  <publisher xmlns="http://datacite.org/schema/kernel-4">CORA</publisher>
+  <publicationYear xmlns="http://datacite.org/schema/kernel-4">2018</publicationYear>
+  <subjects xmlns="http://datacite.org/schema/kernel-4">
+    <subject xml:lang="en-us" schemeURI="" subjectScheme="">SOBA</subject>
+  </subjects>
+  <contributors xmlns="http://datacite.org/schema/kernel-4">
+    <contributor contributorType="ContactPerson">
+      <contributorName>SHIBA</contributorName>
+      <nameIdentifier schemeURI="" nameIdentifierScheme=""/>
+      <affiliation>LILA</affiliation>
+    </contributor>
+  </contributors>
+  <dates xmlns="http://datacite.org/schema/kernel-4">
+    <date dateType="Accepted">2018-01-26</date>
+  </dates>
+  <language xmlns="http://datacite.org/schema/kernel-4">chi</language>
+  <resourceType xmlns="http://datacite.org/schema/kernel-4" resourceTypeGeneral="Dataset">Geochemistry</resourceType>
+  <alternateIdentifiers xmlns="http://datacite.org/schema/kernel-4">
+    <alternateIdentifier alternateIdentifierType=""/>
+  </alternateIdentifiers>
+  <relatedIdentifiers xmlns="http://datacite.org/schema/kernel-4">
+    <relatedIdentifier relatedIdentifierType="ARK" relationType="IsCitedBy" relatedMetadataScheme="" schemeURI=""/>
+  </relatedIdentifiers>
+  <sizes xmlns="http://datacite.org/schema/kernel-4">
+    <size>220 kB</size>
+  </sizes>
+  <formats xmlns="http://datacite.org/schema/kernel-4">
+    <format>excel</format>
+  </formats>
+  <version xmlns="http://datacite.org/schema/kernel-4">1.0</version>
+  <rightsList xmlns="http://datacite.org/schema/kernel-4">
+    <rights rightsURI="http://dcc.ngac.org.cn/home/dataauth.htm">HIPPO</rights>
+  </rightsList>
+  <descriptions xmlns="http://datacite.org/schema/kernel-4">
+    <description xml:lang="en-us" descriptionType="Abstract">MALA</description>
+  </descriptions>
+</resource>
