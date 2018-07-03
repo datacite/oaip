@@ -9,3 +9,5 @@ services:
       - "8030:80"
     volumes:
       - ~/.m2:/root/.m2
+      - ./spec:/home/app/spec
+
