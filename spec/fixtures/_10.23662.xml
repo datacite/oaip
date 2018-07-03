@@ -1,9 +1,0 @@
-
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <identifier identifierType="DOI">10.23650/DATA.G.2018.P1</identifier>
-    <titles xmlns="http://datacite.org/schema/kernel-4/titles">
-    <!--资源的标题[必填] titleType可参照：https://schema.datacite.org/meta/kernel-4.0/include/datacite-titleType-v4.xsd -->
-    <title xml:lang="en-us">鄂尔多斯盆地地下水无机指标数据集（2014-2015年度）</title>
-    <title xml:lang="en-us" titleType="TranslatedTitle">Inorganic Indicator Dataset for Groundwater in Ordos Basin (2014-2015)</title>
-  </titles>
-</resource>
