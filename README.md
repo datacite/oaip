@@ -7,7 +7,7 @@ of disseminating the contents of the DataCite Metadata Store using OAI-PMH.
 
 To learn more about DataCite please visit [our website](http://www.datacite.org)
 
-To use this service please go to [https://oai.datacite.org](https://oai.datacite.org)
+This service has been replaced with https://github.com/datacite/viringo.
 
 ## Installation
 
